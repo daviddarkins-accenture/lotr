@@ -348,41 +348,113 @@ This POC demonstrates how to show Data 360 data directly on Salesforce record pa
 
 **Reference:** [Engagement Data Model Objects](https://help.salesforce.com/s/articleView?id=sf.c360a_engagement_dmo.htm)
 
-### Step 5: Configure Identity Resolution
+### Step 5: Deploy Custom Account Fields and Permission Set
 
-Identity Resolution links Data Cloud profiles to Salesforce records (Person Accounts in this case).
+Before linking Data Cloud to Salesforce CRM, we need to deploy the custom fields that will store the character data and link profiles to Accounts.
 
-1. Navigate to **Data Cloud Setup** → **Identity Resolution** → **Identity Resolution Rules**
+1. **Authenticate with Salesforce CLI**:
+   ```bash
+   cd SFDC/lotr
+   sf org login web --alias lotr-dev
+   ```
+   Or if you already have an org authenticated:
+   ```bash
+   sf org list
+   ```
 
-2. **Create or Edit Identity Resolution Rule**:
-   - If no rule exists, click **New**
-   - If a default rule exists, click **Edit**
+2. **Deploy Custom Fields**:
+   ```bash
+   # Deploy Account custom fields (characterId, Race, Gender, etc.)
+   sf project deploy start --source-dir force-app/main/default/objects/Account
+   ```
 
-3. **Configure Matching**:
-   - **Match Type**: Select how to match profiles to Salesforce records
-   - For this POC, we'll use **Email** or **External ID** matching
-   - Since LOTR characters don't have emails, we'll use a custom field match
+3. **Deploy Permission Set**:
+   ```bash
+   # Deploy the LOTR permission set (grants access to custom fields)
+   sf project deploy start --source-dir force-app/main/default/permissionsets
+   ```
 
-4. **Add Matching Rule**:
+4. **Assign Permission Set to Users**:
+   - In Salesforce Setup, go to **Users** → **Permission Sets** → **lotr**
+   - Click **Manage Assignments** → **Add Assignments**
+   - Select users who need access to LOTR character data
+   - Click **Assign**
+
+**Reference:** [Deploy Metadata with Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_commands.htm)
+
+### Step 6: Add Account to Data Stream
+
+To link Data Cloud profiles to Salesforce Accounts, we need to add the Account object to the Data Stream.
+
+1. Navigate to **Data Cloud Setup** → **Data Streams** → **New**
+
+![Add CRM Data Stream](assets/dcstream_newcrm.png)
+*Navigate to Data Streams → New to add CRM data*
+
+2. **Select CRM as the source**:
+   - In the **Connector** dropdown, select **CRM** (or your Salesforce org connector)
+   - In the **Object** dropdown, select **Account**
+
+![Select Account Object](assets/dcstream_newcrmaccount.png)
+*Select Account object from CRM connector*
+
+3. **Configure the Account Data Stream**:
+   - **Object API Name**: `Account`
+   - **Category**: **Profile** (Account represents identity)
+   - **Primary Key**: `Id` (Salesforce Account ID)
+   - **Record Modified Field**: `LastModifiedDate`
+   - **Refresh Mode**: `Upsert`
+
+4. **Deploy** the Account data stream
+
+**Reference:** [Add CRM Data to Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_add_crm_data.htm)
+
+### Step 7: Create DMO for Data Streams
+
+Data Model Objects (DMOs) are required to link Data Cloud profiles to Salesforce records. We need to create DMOs for both the LotrCharacter and Account data streams.
+
+1. Navigate to **Data Cloud Setup** → **Data Model Objects** → **New**
+
+2. **Create DMO for LotrCharacter**:
+   - **Name**: `LotrCharacter`
+   - **Data Stream**: Select `lotr-LotrCharacter`
+   - **Category**: **Profile**
+   - **Primary Key**: `characterId`
+
+3. **Create DMO for Account**:
+   - **Name**: `Account`
+   - **Data Stream**: Select the Account CRM data stream you created in Step 6
+   - **Category**: **Profile**
+   - **Primary Key**: `Id`
+
+**Reference:** [Data Model Objects in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_data_model_objects.htm)
+
+### Step 8: Add Account Mapping to LotrCharacter DMO
+
+Link the LotrCharacter DMO to the Account DMO so that Data Cloud can match characters to Salesforce Accounts.
+
+1. Navigate to **Data Cloud Setup** → **Data Model Objects** → Select `LotrCharacter`
+
+![Add Account to LotrCharacter DMO](assets/dcstream_newlotrchardmoaccount.png)
+*Add Account relationship to LotrCharacter DMO*
+
+2. **Add Account Relationship**:
+   - Click **Add Relationship** or **Edit Relationships**
+   - **Related DMO**: Select `Account`
+   - **Relationship Type**: **One-to-One** or **Many-to-One**
+
+3. **Configure Field Mapping**:
    - **Source Field**: `LotrCharacter.characterId`
-   - **Target Field**: `Account.characterId__c` (custom field we'll deploy)
-   - **Match Type**: Exact Match
-   - **Priority**: 1
+   - **Target Field**: `Account.characterId__c` (the custom field we deployed in Step 5)
 
-5. **Enable the Rule**:
-   - Toggle the rule to **Active**
-   - **Save** the rule
+![Configure Account Mapping](assets/dcstream_newlotrchardmoaccountmapping.png)
+*Map characterId from LotrCharacter to characterId__c on Account*
 
-6. **Run Identity Resolution** (optional, for existing data):
-   - Navigate to **Data Cloud Setup** → **Identity Resolution** → **Run Identity Resolution**
-   - Select your rule and click **Run**
-   - This links existing Data Cloud profiles to Salesforce Accounts
+4. **Save** the relationship
 
-**Note:** Identity Resolution runs automatically when new profiles are created, but you may need to run it manually for existing data.
+**Reference:** [DMO Relationships in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_dmo_relationships.htm)
 
-**Reference:** [Identity Resolution in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_identity_resolution.htm)
-
-### Step 6: Configure Data Cloud Related Lists
+### Step 9: Configure Data Cloud Related Lists
 
 Data Cloud Related Lists allow you to display Engagement data (quotes) directly on Salesforce record pages.
 
@@ -420,42 +492,14 @@ Data Cloud Related Lists allow you to display Engagement data (quotes) directly 
 
 **Reference:** [Data Cloud Related Lists](https://help.salesforce.com/s/articleView?id=sf.c360a_related_lists.htm)
 
-### Step 7: Deploy Salesforce Metadata
+### Step 10: Deploy Remaining Salesforce Metadata
 
-Deploy the custom fields, permission sets, flows, and page layouts to your Salesforce org.
+Deploy the flows and page layouts to complete the Salesforce integration.
 
 ![LOTR API Homepage](assets/lotrapihome_start.png)
 *The One API - Source of our Middle-earth data*
 
-1. **Authenticate with Salesforce CLI**:
-   ```bash
-   cd SFDC/lotr
-   sf org login web --alias lotr-dev
-   ```
-   Or if you already have an org authenticated:
-   ```bash
-   sf org list
-   ```
-
-2. **Deploy Custom Fields and Objects**:
-   ```bash
-   # Deploy Account custom fields
-   sf project deploy start --source-dir force-app/main/default/objects/Account
-   ```
-
-3. **Deploy Permission Set**:
-   ```bash
-   # Deploy the LOTR permission set (grants access to custom fields)
-   sf project deploy start --source-dir force-app/main/default/permissionsets
-   ```
-
-4. **Assign Permission Set to Users**:
-   - In Salesforce Setup, go to **Users** → **Permission Sets** → **lotr**
-   - Click **Manage Assignments** → **Add Assignments**
-   - Select users who need access to LOTR character data
-   - Click **Assign**
-
-5. **Update and Deploy Flow** (for automatic Person Account creation):
+1. **Update and Deploy Flow** (for automatic Person Account creation):
    
    **First, find your Data Cloud object API name:**
    - Go to **Data Cloud Setup** → **Data Streams** → Select `lotr-LotrCharacter`
@@ -493,6 +537,42 @@ Deploy the custom fields, permission sets, flows, and page layouts to your Sales
      - Page layout includes the Related List
 
 **Reference:** [Deploy Metadata with Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_commands.htm)
+
+## 🔗 Configure Identity Resolution
+
+Identity Resolution links Data Cloud profiles to Salesforce records (Person Accounts in this case). This step should be completed after you have:
+- Deployed custom Account fields (Step 5)
+- Added Account to Data Stream (Step 6)
+- Created DMOs and relationships (Steps 7-8)
+
+1. Navigate to **Data Cloud Setup** → **Identity Resolution** → **Identity Resolution Rules**
+
+2. **Create or Edit Identity Resolution Rule**:
+   - If no rule exists, click **New**
+   - If a default rule exists, click **Edit**
+
+3. **Configure Matching**:
+   - **Match Type**: Select how to match profiles to Salesforce records
+   - For this POC, we'll use **External ID** matching via the custom field
+
+4. **Add Matching Rule**:
+   - **Source Field**: `LotrCharacter.characterId`
+   - **Target Field**: `Account.characterId__c` (custom field deployed in Step 5)
+   - **Match Type**: Exact Match
+   - **Priority**: 1
+
+5. **Enable the Rule**:
+   - Toggle the rule to **Active**
+   - **Save** the rule
+
+6. **Run Identity Resolution** (optional, for existing data):
+   - Navigate to **Data Cloud Setup** → **Identity Resolution** → **Run Identity Resolution**
+   - Select your rule and click **Run**
+   - This links existing Data Cloud profiles to Salesforce Accounts
+
+**Note:** Identity Resolution runs automatically when new profiles are created, but you may need to run it manually for existing data.
+
+**Reference:** [Identity Resolution in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_identity_resolution.htm)
 
 ### Step 8: Note Data 360 Instance URL
 
