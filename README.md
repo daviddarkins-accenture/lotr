@@ -437,6 +437,9 @@ Data Lake Objects (DLOs) are automatically created when you deploy a Data Stream
 ![Custom Object Selection](assets/dcstream_newlotrchardlo.png)
 *Select Custom Object for the DLO mapping*
 
+![Deploy DLO Mapping](assets/dcstream_newlotrchardlodeploy.png)
+*Deploy the DLO mapping configuration*
+
 5. Note the **DLO API Name** (format: `lotr_LotrCharacter_{orgId}__dlm`)
 
 6. **For Account DLO**:
