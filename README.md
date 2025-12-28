@@ -469,34 +469,8 @@ Mapping Account to LotrCharacter creates a relationship that enables:
    - Deploy the DLO mapping configuration
    - Note the **DLO API Name** (format: `lotr_LotrQuote_{orgId}__dlm`)
 
-7.8. **Configure Identity Resolution**:
-   - Navigate to **Data Cloud Setup** → **Identity Resolution** → **Identity Resolution Rules**
-
-![Identity Resolution Start](assets/dcidentitystart.png)
-*Navigate to Identity Resolution to configure matching rules*
-
-   - Create or edit an Identity Resolution rule
-   - Configure matching to link LotrCharacter profiles to Salesforce Person Accounts
-   - This enables Data Cloud to match characters to Salesforce CRM records
-
-**Note:** DLOs are the underlying storage layer in Data Cloud. When you deploy a Data Stream, the DLO structure is automatically created, but you must configure the mapping to Salesforce objects manually through the Data Mapping section.
-
-**Reference:** [Data Lake Objects in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_data_lake_objects.htm)
-
-### Step 8: Add Relationships
-
-Add relationships between LotrCharacter, LotrQuote, and Account to enable data linking and Related Lists.
-
-1. Navigate to **Data Streams** → Select `lotr-LotrCharacter` → **Mappings**
-
-2. Click the **Data Mapping** section and press **Start**
-
-3. Click **Data Mapping Entities**
-
-![Data Mapping Entities](assets/dcstream_newlotrchardmoaccountstart.png)
-*Click Data Mapping Entities to add relationships*
-
-4. **Add Relationship between LotrCharacter and Quote**:
+7.8. **Add Relationships**:
+   - Add relationships to both characters and quotes
    - In the DLO mapping configuration, add a relationship to link LotrCharacter to Quote
 
 ![Start Adding Relationship](assets/dcstream_newlotrchardmorelstart.png)
@@ -505,14 +479,45 @@ Add relationships between LotrCharacter, LotrQuote, and Account to enable data l
 ![Configure Relationship](assets/dcstream_newlotrchardmorel.png)
 *Configure the relationship linking LotrCharacter to Quote*
 
-5. **Add Relationship between LotrCharacter and Account**:
-   - **Select Object** and choose **Account**
-   - Configure the mapping between LotrCharacter and Account
+**Note:** DLOs are the underlying storage layer in Data Cloud. When you deploy a Data Stream, the DLO structure is automatically created, but you must configure the mapping to Salesforce objects manually through the Data Mapping section.
 
-![Configure LotrCharacter to Account Mapping](assets/dcstream_newlotrchardloaccountmapping.png)
-*Configure the mapping between LotrCharacter and Account*
+**Reference:** [Data Lake Objects in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_data_lake_objects.htm)
 
-**Reference:** [DMO Relationships in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_dmo_relationships.htm)
+### Step 8: Configure Identity Resolution
+
+Identity Resolution links Data Cloud profiles to Salesforce records (Person Accounts in this case).
+
+1. Navigate to **Data Cloud Setup** → **Identity Resolution** → **Identity Resolution Rules**
+
+![Identity Resolution Start](assets/dcidentitystart.png)
+*Navigate to Identity Resolution to configure matching rules*
+
+2. **Create or Edit Identity Resolution Rule**:
+   - If no rule exists, click **New**
+   - If a default rule exists, click **Edit**
+
+3. **Configure Matching**:
+   - **Match Type**: Select how to match profiles to Salesforce records
+   - For this POC, we'll use **External ID** matching via the custom field
+
+4. **Add Matching Rule**:
+   - **Source Field**: `LotrCharacter.characterId`
+   - **Target Field**: `Account.characterId__c` (custom field deployed in Step 5)
+   - **Match Type**: Exact Match
+   - **Priority**: 1
+
+5. **Enable the Rule**:
+   - Toggle the rule to **Active**
+   - **Save** the rule
+
+6. **Run Identity Resolution** (optional, for existing data):
+   - Navigate to **Data Cloud Setup** → **Identity Resolution** → **Run Identity Resolution**
+   - Select your rule and click **Run**
+   - This links existing Data Cloud profiles to Salesforce Accounts
+
+**Note:** Identity Resolution runs automatically when new profiles are created, but you may need to run it manually for existing data.
+
+**Reference:** [Identity Resolution in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_identity_resolution.htm)
 
 ### Step 9: Configure Data Cloud Related Lists
 
