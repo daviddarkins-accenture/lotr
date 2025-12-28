@@ -442,10 +442,17 @@ When you deploy a Data Stream, the underlying Data Lake Object (DLO) structure i
 
 5. Note the **DLO API Name** (format: `lotr_LotrCharacter_{orgId}__dlm`)
 
-6. **Map characters to Account**:
+6. **Map lotr_LotrCharacter to Account**:
    - Navigate to **Data Cloud Setup** → **Data Streams** → Select your Account CRM data stream
    - Click the **Data Mapping** section and press **Start**
    - Click **Select Object** and choose **Account**
+
+6b. **Configure the mapping**:
+   - Map the fields from LotrCharacter to Account
+   - Configure the relationship between the objects
+
+![Configure LotrCharacter to Account Mapping](assets/dcstream_newlotrchardloaccountmapping.png)
+*Configure the mapping between LotrCharacter and Account*
 
 **Why map Account to Characters?**
 Mapping Account to LotrCharacter creates a relationship that enables:
