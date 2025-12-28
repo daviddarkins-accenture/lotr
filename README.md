@@ -442,28 +442,7 @@ Data Lake Objects (DLOs) are automatically created when you deploy a Data Stream
 
 5. Note the **DLO API Name** (format: `lotr_LotrCharacter_{orgId}__dlm`)
 
-6. **Repeat Steps 1-5 for LotrQuote**:
-   - Navigate to **Data Cloud Setup** → **Data Streams** → Select `lotr-LotrQuote`
-   - Click the **Data Mapping** section and press **Start** (or **Deploy**)
-   - Click **Select Object**
-   - Select **Custom Object** and choose the appropriate object
-   - Deploy the DLO mapping configuration
-   - Note the **DLO API Name** (format: `lotr_LotrQuote_{orgId}__dlm`)
-
-7. **Add Relationships**:
-   - Add relationships to both characters and quotes
-   - In the DLO mapping configuration, add a relationship to link LotrCharacter to Quote
-   - (We will come back to Account later)
-
-![Start Adding Relationship](assets/dcstream_newlotrchardmorelstart.png)
-*Start adding relationship between LotrCharacter and Quote*
-
-![Configure Relationship](assets/dcstream_newlotrchardmorel.png)
-*Configure the relationship linking LotrCharacter to Quote*
-
-This relationship enables Identity Resolution and allows Data Cloud to match characters to Salesforce Person Accounts.
-
-8. **For Account DLO**:
+6. **For Account DLO**:
    - Navigate to **Data Cloud Setup** → **Data Streams** → Select your Account CRM data stream
    - Click the **Data Mapping** section and press **Start**
    - Click **Select Object** and choose **Account**
@@ -475,6 +454,27 @@ Mapping Account to LotrCharacter creates a relationship that enables:
 - **Unified Profiles**: Allows Data Cloud to create unified customer profiles combining external data (LOTR characters) with CRM data (Accounts)
 - **Data Actions**: Enables automated workflows (like the Flow that creates Person Accounts) when characters are ingested
 - **Related Lists**: Allows Engagement data (quotes) to display on Account pages by linking through the characterId field
+
+7. **Repeat Steps 1-5 for LotrQuote**:
+   - Navigate to **Data Cloud Setup** → **Data Streams** → Select `lotr-LotrQuote`
+   - Click the **Data Mapping** section and press **Start** (or **Deploy**)
+   - Click **Select Object**
+   - Select **Custom Object** and choose the appropriate object
+   - Deploy the DLO mapping configuration
+   - Note the **DLO API Name** (format: `lotr_LotrQuote_{orgId}__dlm`)
+
+8. **Add Relationships**:
+   - Add relationships to both characters and quotes
+   - In the DLO mapping configuration, add a relationship to link LotrCharacter to Quote
+   - (We will come back to Account later)
+
+![Start Adding Relationship](assets/dcstream_newlotrchardmorelstart.png)
+*Start adding relationship between LotrCharacter and Quote*
+
+![Configure Relationship](assets/dcstream_newlotrchardmorel.png)
+*Configure the relationship linking LotrCharacter to Quote*
+
+This relationship enables Identity Resolution and allows Data Cloud to match characters to Salesforce Person Accounts.
 
 **Note:** DLOs are the underlying storage layer in Data Cloud. When you create a Data Stream, the DLO is automatically created. You don't manually create DLOs - they're generated from your Data Stream configuration.
 
