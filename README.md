@@ -250,16 +250,25 @@ This POC demonstrates how to show Data 360 data directly on Salesforce record pa
 ### Step 2: Create Ingestion API Connector
 
 1. Navigate to **Data Cloud Setup** → **Ingestion API** → **New**
+
+![Data Cloud Setup Start](assets/dcsetup_start.png)
+*Navigate to Data Cloud Setup → Ingestion API → New*
+
 2. Configure the connector:
    - **Connector API Name**: `lotr` (must match your `.env` file `DATA_CLOUD_SOURCE_NAME`)
    - **Description**: "LOTR Character and Quote Data"
-3. **Upload Character Schema** (first schema):
+
+3. **Upload Schema**:
    - Click **Upload Schema**
-   - Upload the file: `schema/lotr_character.yaml`
-   - This creates the `LotrCharacter` object definition
+   - Upload the file: `schema/lotr_schema.yaml`
+   - This creates both the `LotrCharacter` and `LotrQuote` object definitions in one file
+
+![Data Cloud Setup](assets/dcsetup.png)
+*Upload the combined schema file containing both Character and Quote objects*
+
 4. **Save** the connector
 
-**Note:** This connector will eventually contain both character and quote schemas. We're starting with the character schema here. The quote schema (`lotr_quote.yaml`) will be added in Step 4 when we create the Engagement data stream.
+**Note:** The `lotr_schema.yaml` file contains both schemas (`LotrCharacter` and `LotrQuote`) in a single OpenAPI 3.0 file. You only need to upload this one file - both object definitions will be available when creating data streams.
 
 **Reference:** [Create an Ingestion API Connector](https://help.salesforce.com/s/articleView?id=sf.c360a_ingestion_api_connector.htm)
 
@@ -313,14 +322,7 @@ This POC demonstrates how to show Data 360 data directly on Salesforce record pa
 
 ### Step 4: Create Data Stream for LotrQuote (Engagement)
 
-1. **Add Quote Schema to Connector**:
-   - Go back to your **Ingestion API Connector** (`lotr`)
-   - Click **Edit** → **Upload Schema** (or **Add Schema**)
-   - Upload the file: `schema/lotr_quote.yaml`
-   - This adds the `LotrQuote` object definition
-   - **Save** the connector
-
-2. **Create Data Stream for Quotes**:
+1. **Create Data Stream for Quotes**:
    - Navigate to **Data Cloud Setup** → **Data Streams** → **New**
    - In the **Connector** dropdown, select `lotr`
    - In the **Object** dropdown, select `LotrQuote`
