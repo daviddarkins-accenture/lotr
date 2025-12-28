@@ -315,6 +315,40 @@ sf project deploy start --source-dir force-app/main/default/flexipages
 **Reference:** [Deploy Metadata with Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_commands.htm)
 </details>
 
+### Step 11: Run Ingestion and Verify in Data Cloud
+
+<details>
+<summary>Click for detailed steps</summary>
+
+1. **Start the Flask app:**
+   ```bash
+   python app.py
+   ```
+
+2. **Open browser:** `http://localhost:5001`
+
+3. **Fetch data:**
+   - Click **"Fetch LOTR Data 📜"** to load characters and quotes from The One API
+
+4. **Ingest characters:**
+   - Click **"Send Characters 🌋"** to ingest character data into Data 360
+   - Wait for confirmation message
+
+5. **Ingest quotes:**
+   - Click **"Send Quotes 💬"** to ingest quotes into Data 360
+   - Wait for confirmation message
+
+6. **Verify in Data Cloud:**
+   - Navigate to **Data Cloud Setup** → **Data Streams**
+   - Select `lotr-LotrCharacter` → Check **Total Records** (~933)
+   - Select `lotr-LotrQuote` → Check **Total Records** (~2,383)
+   - Review **Data Stream Refresh History** for successful ingestion jobs
+
+7. **Verify in Salesforce:**
+   - Check that Person Accounts were created (if Flow is active)
+   - Open a Person Account → Verify Related List shows quotes
+</details>
+
 **Note:** Additional setup screenshots available in `/assets` gallery.
 
 ## ✅ Validate
