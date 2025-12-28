@@ -469,7 +469,7 @@ Mapping Account to LotrCharacter creates a relationship that enables:
    - Deploy the DLO mapping configuration
    - Note the **DLO API Name** (format: `lotr_LotrQuote_{orgId}__dlm`)
 
-7.8. **Add Relationships**:
+8. **Add Relationships**:
    - Add relationships to both characters and quotes
    - In the DLO mapping configuration, add a relationship to link LotrCharacter to Quote
 
@@ -487,7 +487,7 @@ Mapping Account to LotrCharacter creates a relationship that enables:
 
 Identity Resolution links Data Cloud profiles to Salesforce records (Person Accounts in this case).
 
-1. Navigate to **Data Cloud Setup** → **Identity Resolution** → **Identity Resolution Rules**
+1. Navigate to **Identity Resolution** → **New**
 
 ![Identity Resolution Start](assets/dcidentitystart.png)
 *Navigate to Identity Resolution to configure matching rules*
