@@ -472,7 +472,6 @@ Mapping Account to LotrCharacter creates a relationship that enables:
 8. **Add Relationships**:
    - Add relationships to both characters and quotes
    - In the DLO mapping configuration, add a relationship to link LotrCharacter to Quote
-   - (We will come back to Account later)
 
 ![Start Adding Relationship](assets/dcstream_newlotrchardmorelstart.png)
 *Start adding relationship between LotrCharacter and Quote*
