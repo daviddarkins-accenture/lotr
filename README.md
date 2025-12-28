@@ -54,13 +54,23 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
 
 5. **Configure environment variables:**
    
-   Option A - Use the setup wizard:
+   **Option A - Use the setup wizard (Recommended):**
    ```bash
    python setup.py
    ```
-   Follow the prompts to configure your API keys and Data 360 credentials. This creates a `.env` file.
    
-   Option B - Manual setup:
+   The wizard will guide you through:
+   1. **LOTR API Key** - Get one at https://the-one-api.dev/sign-up
+   2. **Data Cloud Client ID** - From your OAuth Connected App
+   3. **Data Cloud Client Secret** - From your OAuth Connected App
+   4. **Data Cloud Auth URL** - Default: `https://login.salesforce.com` (or your sandbox URL)
+   5. **Data Cloud Ingestion API URL** - Your Data 360 instance URL (e.g., `https://your-instance.c360a.salesforce.com`)
+   6. **Source API Name** - Default: `lotr` (must match your Data Stream configuration)
+   7. **Object API Name** - Default: `LotrCharacter` (must match your Data Stream configuration)
+   
+   This creates a `.env` file with all your credentials.
+   
+   **Option B - Manual setup:**
    ```bash
    cp .env.example .env
    # Edit .env with your actual credentials
