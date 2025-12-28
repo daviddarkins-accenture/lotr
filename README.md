@@ -2,7 +2,7 @@
 
 > *"One Ring to Rule Them All, One POC to Bind Them"*
 
-A Python-based proof-of-concept that ingests Lord of the Rings character data from [The One API](https://the-one-api.dev) into Salesforce Data Cloud via the Ingestion API, complete with a Flask web UI featuring LOTR-themed messaging.
+A Python-based proof-of-concept that ingests Lord of the Rings character data from [The One API](https://the-one-api.dev) into Salesforce Data 360 via the Ingestion API, complete with a Flask web UI featuring LOTR-themed messaging.
 
 ![The One API Homepage](assets/lotrapihome.png)
 *The One API - Source of our Middle-earth data*
@@ -10,11 +10,11 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
 ## 🗺️ What This Does
 
 - **Fetches** ~933 LOTR characters + 2,383 quotes from The One API
-- **Ingests Characters** into Data Cloud as `LotrCharacter` (Profile DMO)
-- **Ingests Quotes** into Data Cloud as `LotrQuote` (Engagement DMO)
+- **Ingests Characters** into Data 360 as `LotrCharacter` (Profile DMO)
+- **Ingests Quotes** into Data 360 as `LotrQuote` (Engagement DMO)
 - **Displays Quotes** on Person Account pages via **Data Cloud Related Lists**
 - **Deletes** both characters and quotes using Bulk API
-- **Triggers Salesforce Flows** via Data Cloud → Account creation
+- **Triggers Salesforce Flows** via Data 360 → Account creation
 - **Provides** a web UI to trigger ingestion/deletion with live status updates
 - **Features** Gandalf-themed setup wizard and LOTR quotes throughout
 
@@ -24,7 +24,7 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
 
 - Python 3.8+
 - A LOTR API key ([sign up here](https://the-one-api.dev/sign-up))
-- Salesforce Data Cloud org with:
+- Salesforce Data 360 org with:
   - Ingestion API connector configured
   - OAuth Connected App with client credentials
   - Source API Name: `lotr`
@@ -32,7 +32,11 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
 
 ### Installation
 
-1. **Clone or navigate to this directory**
+1. **Clone this repository:**
+   ```bash
+   git clone https://github.com/daviddarkins-accenture/lotr.git
+   cd lotr
+   ```
 
 2. **Create and activate a virtual environment:**
    ```bash
@@ -53,7 +57,7 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
    ```bash
    python setup.py
    ```
-   Follow the prompts to configure your API keys and Data Cloud credentials. This creates a `.env` file.
+   Follow the prompts to configure your API keys and Data 360 credentials. This creates a `.env` file.
    
    Option B - Manual setup:
    ```bash
@@ -78,10 +82,10 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
 9. **Click "Send Quotes 💬"** to ingest quotes (for Related Lists!)
 
 ![Data Cloud Setup](assets/dcsetup.png)
-*Data Cloud Data Stream configuration*
+*Data 360 Data Stream configuration*
 
 ![Data Cloud Stream](assets/dcstream.png)
-*Data appearing in Data Cloud after ingestion*
+*Data appearing in Data 360 after ingestion*
 
 ## 📦 Project Structure
 
@@ -90,16 +94,19 @@ lotr/
 ├── schema/
 │   ├── lotr_character.yaml     # Character schema (Profile DMO)
 │   ├── lotr_quote.yaml         # Quote schema (Engagement DMO)
-│   └── lotr_schema.yaml        # Combined schema for Data Cloud
+│   └── lotr_schema.yaml        # Combined schema for Data 360
 ├── static/                     # Flask static files
 │   ├── bg.png                  # Background image
 │   ├── style.css               # UI styling
 │   └── app.js                  # Frontend JavaScript
 ├── templates/
 │   └── index.html              # Main UI template
-├── data/                       # Cache directory (auto-created)
+├── SFDC/lotr/
+│   ├── force-app/              # Salesforce metadata
+│   └── manifest/               # Package manifest
+├── assets/                     # Screenshots and images
 ├── app.py                      # Flask web application
-├── auth.py                     # Data Cloud OAuth2 + Token Exchange
+├── auth.py                     # Data 360 OAuth2 + Token Exchange
 ├── config.py                   # Configuration validation
 ├── deletion.py                 # Bulk API deletion pipeline
 ├── ingestion.py                # Streaming ingestion pipeline
@@ -113,7 +120,7 @@ lotr/
 
 ### Authentication (Two-Step Token Exchange)
 
-Data Cloud requires a **two-step authentication**:
+Data 360 requires a **two-step authentication**:
 
 1. **Get Salesforce Access Token** (Client Credentials Flow)
    ```
@@ -121,14 +128,16 @@ Data Cloud requires a **two-step authentication**:
    grant_type=client_credentials
    ```
 
-2. **Exchange for Data Cloud Token**
+2. **Exchange for Data 360 Token**
    ```
    POST {instance_url}/services/a360/token
    grant_type=urn:salesforce:grant-type:external:cdp
    subject_token={salesforce_token}
    ```
 
-This returns a JWT token and the Data Cloud instance URL (`*.c360a.salesforce.com`).
+This returns a JWT token and the Data 360 instance URL (`*.c360a.salesforce.com`).
+
+**Reference:** [Data Cloud Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_get_token.htm)
 
 ### Ingestion (Streaming API)
 
@@ -144,6 +153,8 @@ Content-Type: application/json
 - All schema fields must be present (use empty string for missing values)
 - Processing is async (~3 minutes)
 - Returns `202 Accepted`
+
+**Reference:** [Streaming Ingestion API](https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_streaming_ingest.htm)
 
 ### Deletion (Bulk API)
 
@@ -171,7 +182,7 @@ PATCH /api/v1/ingest/jobs/{id}
 
 ## 💬 Data Cloud Related Lists
 
-This POC demonstrates how to show Data Cloud data directly on Salesforce record pages using **Data Cloud Related Lists**.
+This POC demonstrates how to show Data 360 data directly on Salesforce record pages using **Data Cloud Related Lists**.
 
 ![Characters in Salesforce](assets/SFLOTR Characters.png)
 *LOTR Characters as Person Accounts in Salesforce*
@@ -192,20 +203,52 @@ This POC demonstrates how to show Data Cloud data directly on Salesforce record 
 - Event Time Field: `ingestedAt`
 - Relationship: `LotrQuote.characterId` → `Account.characterId`
 
-For complete setup instructions, see the Salesforce Data Cloud documentation or refer to the setup wizard (`python setup.py`).
+## 🏗️ Salesforce Data 360 Setup
 
----
+### Step 1: Create OAuth Connected App
 
-## 🔐 Security Notes
+1. **Setup** → **App Manager** → **New Connected App**
+2. Enable OAuth with scopes:
+   - `cdp_ingest_api`
+   - `api`
+   - `refresh_token, offline_access`
+3. **Enable Client Credentials Flow**
+4. Set **Run As** user in policies
+5. Note your **Client ID** and **Client Secret**
 
-- **Never commit `.env`** - it contains your secrets
-- All API calls happen **server-side** in Flask
-- Browser never sees your credentials
-- Keep your LOTR API key and Data Cloud credentials safe
+### Step 2: Create Ingestion API Connector
+
+1. **Data Cloud Setup** → **Ingestion API** → **New**
+2. Configure:
+   - **Connector API Name**: `lotr`
+   - Upload schema from `schema/lotr_character.yaml`
+
+### Step 3: Create Data Stream
+
+| Setting | Value |
+|---------|-------|
+| Object API Name | `LotrCharacter` |
+| Category | **Profile** |
+| Primary Key | `characterId` |
+| Record Modified Field | `ingestedAt` |
+| Refresh Mode | `Upsert` |
+
+**Deploy** the data stream when done.
+
+### Step 4: Note Data 360 Instance URL
+
+After deployment, find the **Ingestion API endpoint** in the connector details:
+```
+https://{subdomain}.c360a.salesforce.com
+```
+
+This URL is also returned by the token exchange process.
+
+**Reference:** [Data Cloud Connectors and Integrations (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/data-cloud-connectors-and-integrations)
 
 ## ✅ Validation
 
-After ingestion, verify in Data Cloud Data Explorer:
+After ingestion, verify in Data 360 Data Explorer:
 
 **Characters:**
 - Select Object: `lotr-LotrCharacter`
@@ -226,12 +269,12 @@ After deletion:
 - Check Data Stream Refresh History for "Delete" operations
 - Both Character and Quote records should go to 0
 
-## 🌠 Future Enhancements
+## 🔐 Security Notes
 
-- Link Salesforce Contacts to favorite LOTR characters
-- Create behavioral event tracking (e.g., "viewed character profile")
-- Deploy Agentforce to answer questions about customer LOTR preferences
-- Build Data Actions to trigger campaigns based on character affinities
+- **Never commit `.env`** - it contains your secrets
+- All API calls happen **server-side** in Flask
+- Browser never sees your credentials
+- Keep your LOTR API key and Data 360 credentials safe
 
 ## 🧙‍♂️ Troubleshooting
 
@@ -241,6 +284,7 @@ After deletion:
 **"400 Bad Request" on ingestion:**
 - Check that all schema fields are present (even with empty strings)
 - Verify schema matches Data Stream configuration
+- Ensure you're using Data 360 token (not Salesforce token)
 
 **"Deletes not working":**
 - Streaming DELETE doesn't work with Upsert refresh mode
@@ -252,9 +296,30 @@ After deletion:
 - Processing is async (~3 minutes)
 - Check Data Stream Refresh History for job status
 
+**"401 Unauthorized" errors:**
+- Verify Connected App has correct scopes
+- Check Client Credentials Flow is enabled
+- Verify Run As user is set in policies
+
+## 🌠 Future Enhancements
+
+- Link Salesforce Contacts to favorite LOTR characters
+- Create behavioral event tracking (e.g., "viewed character profile")
+- Deploy Agentforce to answer questions about customer LOTR preferences
+- Build Data Actions to trigger campaigns based on character affinities
+
 ## 📝 License
 
 MIT - This is a learning POC, not a production system.
+
+---
+
+## 📚 Additional Resources
+
+- [Data Cloud Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_quick_start.htm)
+- [Data Cloud Connectors and Integrations (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/data-cloud-connectors-and-integrations)
+- [Data Cloud Quick Look (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/data-cloud-quick-look)
+- [The One API Documentation](https://the-one-api.dev/documentation)
 
 ---
 
