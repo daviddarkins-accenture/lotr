@@ -104,6 +104,10 @@
         <connector>
             <targetReference>createPersonAccount</targetReference>
         </connector>
+        <!-- IMPORTANT: Update this object name to match your Data Cloud object API name -->
+        <!-- Format: {source}_{object}_{orgId}__dlm -->
+        <!-- Find your object name in Data Cloud Setup > Data Streams > {Your Stream} > Object API Name -->
+        <!-- Example: lotr_LotrCharacter_D737044C__dlm (replace D737044C with your org's identifier) -->
         <object>lotr_LotrCharacter_D737044C__dlm</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>DataCloudDataChange</triggerType>

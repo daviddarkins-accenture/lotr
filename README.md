@@ -244,6 +244,26 @@ https://{subdomain}.c360a.salesforce.com
 
 This URL is also returned by the token exchange process.
 
+### Step 5: Configure Data Cloud Triggered Flow (Optional)
+
+If you want to automatically create Person Accounts when characters are ingested, you'll need to update the Flow metadata:
+
+1. **Find your Data Cloud object API name:**
+   - Go to **Data Cloud Setup** → **Data Streams** → Select your stream
+   - Note the **Object API Name** (format: `{source}_{object}_{orgId}__dlm`)
+   - Example: `lotr_LotrCharacter_D737044C__dlm`
+
+2. **Update the Flow metadata:**
+   - Open `SFDC/lotr/force-app/main/default/flows/lotrCreateAccount.flow-meta.xml`
+   - Update line 107: Replace `lotr_LotrCharacter_D737044C__dlm` with your actual object API name
+   - The `D737044C` part is org-specific — you'll have a different identifier
+
+3. **Deploy the Flow:**
+   ```bash
+   cd SFDC/lotr
+   sf project deploy start --source-dir force-app/main/default/flows
+   ```
+
 **Reference:** [Data Cloud Connectors and Integrations (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/data-cloud-connectors-and-integrations)
 
 ## ✅ Validation
