@@ -48,9 +48,13 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
    ```
 
 4. **Set up Salesforce Data 360** (see [Salesforce Data 360 Setup](#-salesforce-data-360-setup) section below):
-   - Create OAuth Connected App
-   - Create Ingestion API Connector (Source API Name: `lotr`)
-   - Create Data Streams for `LotrCharacter` and `LotrQuote`
+   - Create OAuth Connected App (Step 1)
+   - Create Ingestion API Connector with `LotrCharacter` schema (Step 2)
+   - Create Data Stream for `LotrCharacter` - Profile category (Step 3)
+   - Create Data Stream for `LotrQuote` - Engagement category (Step 4)
+   - Configure Identity Resolution (Step 5)
+   - Configure Data Cloud Related Lists (Step 6)
+   - Deploy Salesforce metadata (Step 7)
 
 5. **Configure environment variables:**
    
@@ -218,62 +222,262 @@ This POC demonstrates how to show Data 360 data directly on Salesforce record pa
 
 ### Step 1: Create OAuth Connected App
 
-1. **Setup** → **App Manager** → **New Connected App**
-2. Enable OAuth with scopes:
-   - `cdp_ingest_api`
-   - `api`
-   - `refresh_token, offline_access`
-3. **Enable Client Credentials Flow**
-4. Set **Run As** user in policies
-5. Note your **Client ID** and **Client Secret**
+1. Navigate to **Setup** → **App Manager** → **New Connected App**
+2. Fill in basic information:
+   - **Connected App Name**: `LOTR Data Cloud Ingestion`
+   - **API Name**: `LOTR_Data_Cloud_Ingestion`
+   - **Contact Email**: Your email
+3. Enable OAuth Settings:
+   - Check **Enable OAuth Settings**
+   - **Callback URL**: `https://localhost` (not used for Client Credentials flow, but required)
+   - **Selected OAuth Scopes**: Add these scopes:
+     - `cdp_ingest_api` (required for Data Cloud Ingestion API)
+     - `api` (required for general API access)
+     - `refresh_token, offline_access` (for token refresh)
+4. **Enable Client Credentials Flow**:
+   - Check **Enable Client Credentials Flow**
+   - This allows server-to-server authentication without user interaction
+5. Set **Run As** user in OAuth Policies:
+   - **Permitted Users**: Select a specific user (recommended) or "All users may self-authorize"
+   - **IP Relaxation**: "Relax IP restrictions" (for development) or configure specific IPs
+6. **Save** the Connected App
+7. **Note your credentials**:
+   - **Consumer Key** (this is your Client ID)
+   - **Consumer Secret** (this is your Client Secret) - click "Click to reveal" to see it
+
+**Reference:** [Create a Connected App](https://help.salesforce.com/s/articleView?id=sf.connected_app_create.htm)
 
 ### Step 2: Create Ingestion API Connector
 
-1. **Data Cloud Setup** → **Ingestion API** → **New**
-2. Configure:
-   - **Connector API Name**: `lotr`
-   - Upload schema from `schema/lotr_character.yaml`
+1. Navigate to **Data Cloud Setup** → **Ingestion API** → **New**
+2. Configure the connector:
+   - **Connector API Name**: `lotr` (must match your `.env` file `DATA_CLOUD_SOURCE_NAME`)
+   - **Description**: "LOTR Character and Quote Data"
+3. **Upload Schema**:
+   - Click **Upload Schema**
+   - Upload the file: `schema/lotr_character.yaml`
+   - This creates the `LotrCharacter` object definition
+4. **Save** the connector
 
-### Step 3: Create Data Stream
+**Note:** You'll create a second schema for quotes later. For now, we're setting up the character (Profile) data stream first.
 
-| Setting | Value |
-|---------|-------|
-| Object API Name | `LotrCharacter` |
-| Category | **Profile** |
-| Primary Key | `characterId` |
-| Record Modified Field | `ingestedAt` |
-| Refresh Mode | `Upsert` |
+**Reference:** [Create an Ingestion API Connector](https://help.salesforce.com/s/articleView?id=sf.c360a_ingestion_api_connector.htm)
 
-**Deploy** the data stream when done.
+### Step 3: Create Data Stream for LotrCharacter (Profile)
 
-### Step 4: Note Data 360 Instance URL
+1. In your **Ingestion API Connector** (`lotr`), click **Create Data Stream**
+2. Configure the data stream:
 
-After deployment, find the **Ingestion API endpoint** in the connector details:
-```
-https://{subdomain}.c360a.salesforce.com
-```
+   | Setting | Value | Notes |
+   |---------|-------|-------|
+   | **Object API Name** | `LotrCharacter` | Must match schema object name |
+   | **Category** | **Profile** | Profile data represents stable identity |
+   | **Primary Key** | `characterId` | Unique identifier for deduplication |
+   | **Record Modified Field** | `ingestedAt` | DateTime field for change detection |
+   | **Refresh Mode** | `Upsert` | Updates existing records or creates new ones |
 
-This URL is also returned by the token exchange process.
+3. **Field Mappings** (if prompted):
+   - Verify all fields from your schema are mapped correctly
+   - Ensure `characterId` is set as the Primary Key
+   - Ensure `ingestedAt` is set as the Record Modified Field
 
-### Step 5: Configure Data Cloud Triggered Flow (Optional)
+4. **Deploy** the data stream:
+   - Click **Deploy**
+   - Wait for deployment to complete (typically 1-2 minutes)
+   - Status should show "Deployed" or "Active"
 
-If you want to automatically create Person Accounts when characters are ingested, you'll need to update the Flow metadata:
-
-1. **Find your Data Cloud object API name:**
-   - Go to **Data Cloud Setup** → **Data Streams** → Select your stream
-   - Note the **Object API Name** (format: `{source}_{object}_{orgId}__dlm`)
+5. **Note the Data Lake Object API Name**:
+   - After deployment, go to **Data Streams** → Select `lotr-LotrCharacter`
+   - Click the **Data Lake Object** tab
+   - Copy the **API Name** (format: `lotr_LotrCharacter_{orgId}__dlm`)
    - Example: `lotr_LotrCharacter_D737044C__dlm`
+   - **You'll need this for the Flow configuration later!**
 
-2. **Update the Flow metadata:**
-   - Open `SFDC/lotr/force-app/main/default/flows/lotrCreateAccount.flow-meta.xml`
-   - Update line 107: Replace `lotr_LotrCharacter_D737044C__dlm` with your actual object API name
-   - The `D737044C` part is org-specific — you'll have a different identifier
+**Reference:** [Create a Data Stream](https://help.salesforce.com/s/articleView?id=sf.c360a_data_stream_create.htm)
 
-3. **Deploy the Flow:**
+### Step 4: Create Data Stream for LotrQuote (Engagement)
+
+1. **Add Quote Schema to Connector**:
+   - Go back to your **Ingestion API Connector** (`lotr`)
+   - Click **Edit** → **Upload Schema** (or **Add Schema**)
+   - Upload the file: `schema/lotr_quote.yaml`
+   - This adds the `LotrQuote` object definition
+
+2. **Create Data Stream for Quotes**:
+   - In the connector, click **Create Data Stream** again
+   - Configure the data stream:
+
+   | Setting | Value | Notes |
+   |---------|-------|-------|
+   | **Object API Name** | `LotrQuote` | Must match schema object name |
+   | **Category** | **Engagement** | Engagement data for Related Lists |
+   | **Primary Key** | `quoteId` | Unique identifier for each quote |
+   | **Event Time Field** | `ingestedAt` | Required for Engagement category |
+   | **Refresh Mode** | `Upsert` | Updates existing records or creates new ones |
+
+3. **Deploy** the quote data stream:
+   - Click **Deploy**
+   - Wait for deployment to complete
+
+**Important:** The **Engagement** category is required for Data Cloud Related Lists to work!
+
+**Reference:** [Engagement Data Model Objects](https://help.salesforce.com/s/articleView?id=sf.c360a_engagement_dmo.htm)
+
+### Step 5: Configure Identity Resolution
+
+Identity Resolution links Data Cloud profiles to Salesforce records (Person Accounts in this case).
+
+1. Navigate to **Data Cloud Setup** → **Identity Resolution** → **Identity Resolution Rules**
+
+2. **Create or Edit Identity Resolution Rule**:
+   - If no rule exists, click **New**
+   - If a default rule exists, click **Edit**
+
+3. **Configure Matching**:
+   - **Match Type**: Select how to match profiles to Salesforce records
+   - For this POC, we'll use **Email** or **External ID** matching
+   - Since LOTR characters don't have emails, we'll use a custom field match
+
+4. **Add Matching Rule**:
+   - **Source Field**: `LotrCharacter.characterId`
+   - **Target Field**: `Account.characterId__c` (custom field we'll deploy)
+   - **Match Type**: Exact Match
+   - **Priority**: 1
+
+5. **Enable the Rule**:
+   - Toggle the rule to **Active**
+   - **Save** the rule
+
+6. **Run Identity Resolution** (optional, for existing data):
+   - Navigate to **Data Cloud Setup** → **Identity Resolution** → **Run Identity Resolution**
+   - Select your rule and click **Run**
+   - This links existing Data Cloud profiles to Salesforce Accounts
+
+**Note:** Identity Resolution runs automatically when new profiles are created, but you may need to run it manually for existing data.
+
+**Reference:** [Identity Resolution in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_identity_resolution.htm)
+
+### Step 6: Configure Data Cloud Related Lists
+
+Data Cloud Related Lists allow you to display Engagement data (quotes) directly on Salesforce record pages.
+
+1. **Enable Related Lists** (if not already enabled):
+   - Navigate to **Data Cloud Setup** → **Related Lists**
+   - Ensure Related Lists are enabled for your org
+
+2. **Create Related List for Quotes**:
+   - Navigate to **Data Cloud Setup** → **Related Lists** → **New**
+   - Configure the Related List:
+
+   | Setting | Value | Notes |
+   |---------|-------|-------|
+   | **Name** | `LOTR Quotes` | Display name for the related list |
+   | **API Name** | `LOTR_Quotes` | Internal API name |
+   | **Data Model Object** | `LotrQuote` | The Engagement DMO |
+   | **Related To Object** | `Account` | Salesforce object to show quotes on |
+   | **Relationship Field** | `characterId` | Field in LotrQuote that links to Account |
+   | **Account Field** | `characterId__c` | Custom field on Account that stores character ID |
+   | **Display Fields** | Select: `dialog`, `movie`, `characterName`, `ingestedAt` | Fields to show in the list |
+
+3. **Configure Display Settings**:
+   - **List Label**: "LOTR Quotes" (or "Quotes")
+   - **List Icon**: Choose an appropriate icon
+   - **Sort By**: `ingestedAt` (descending - newest first)
+   - **Records Per Page**: 25 (default)
+
+4. **Save** the Related List
+
+5. **Add to Page Layout** (if not automatic):
+   - Navigate to **Setup** → **Object Manager** → **Account** → **Page Layouts**
+   - Edit your Person Account page layout
+   - In the **Related Lists** section, ensure "LOTR Quotes" appears
+   - If it doesn't, add it manually
+
+**Reference:** [Data Cloud Related Lists](https://help.salesforce.com/s/articleView?id=sf.c360a_related_lists.htm)
+
+### Step 7: Deploy Salesforce Metadata
+
+Deploy the custom fields, permission sets, flows, and page layouts to your Salesforce org.
+
+1. **Authenticate with Salesforce CLI**:
    ```bash
    cd SFDC/lotr
+   sf org login web --alias lotr-dev
+   ```
+   Or if you already have an org authenticated:
+   ```bash
+   sf org list
+   ```
+
+2. **Deploy Custom Fields and Objects**:
+   ```bash
+   # Deploy Account custom fields
+   sf project deploy start --source-dir force-app/main/default/objects/Account
+   ```
+
+3. **Deploy Permission Set**:
+   ```bash
+   # Deploy the LOTR permission set (grants access to custom fields)
+   sf project deploy start --source-dir force-app/main/default/permissionsets
+   ```
+
+4. **Assign Permission Set to Users**:
+   - In Salesforce Setup, go to **Users** → **Permission Sets** → **lotr**
+   - Click **Manage Assignments** → **Add Assignments**
+   - Select users who need access to LOTR character data
+   - Click **Assign**
+
+5. **Update and Deploy Flow** (for automatic Person Account creation):
+   
+   **First, find your Data Cloud object API name:**
+   - Go to **Data Cloud Setup** → **Data Streams** → Select `lotr-LotrCharacter`
+   - Click the **Data Lake Object** tab
+   - Copy the **API Name** (format: `lotr_LotrCharacter_{orgId}__dlm`)
+   - Example: `lotr_LotrCharacter_D737044C__dlm`
+   
+   **Update the Flow metadata:**
+   - Open `SFDC/lotr/force-app/main/default/flows/lotrCreateAccount.flow-meta.xml`
+   - Find line 111 (the `<object>` tag in the `<start>` element)
+   - Replace `lotr_LotrCharacter_D737044C__dlm` with your actual object API name
+   - The `D737044C` part is org-specific — you'll have a different identifier
+   
+   **Deploy the Flow:**
+   ```bash
    sf project deploy start --source-dir force-app/main/default/flows
    ```
+   
+   **Activate the Flow:**
+   - In Salesforce Setup, go to **Flows** → **lotrCreateAccount**
+   - Click **Activate** (if not already active)
+   - This flow will automatically create Person Accounts when characters are ingested into Data Cloud
+
+6. **Deploy Page Layout** (includes Related List configuration):
+   ```bash
+   sf project deploy start --source-dir force-app/main/default/flexipages
+   ```
+
+7. **Verify Deployment**:
+   - Check deployment status: `sf project deploy report`
+   - In Salesforce, verify:
+     - Custom fields appear on Account object
+     - Permission set is available
+     - Flow is active
+     - Page layout includes the Related List
+
+**Reference:** [Deploy Metadata with Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_commands.htm)
+
+### Step 8: Note Data 360 Instance URL
+
+After deploying your data streams, find the **Ingestion API endpoint**:
+
+1. Go to **Data Cloud Setup** → **Ingestion API** → Select your `lotr` connector
+2. Find the **Ingestion API Endpoint** URL
+3. It will look like: `https://{subdomain}.c360a.salesforce.com`
+4. **Copy this URL** - you'll need it for your `.env` file (`DATA_CLOUD_INGESTION_URL`)
+
+**Alternative:** This URL is also returned by the token exchange process when you authenticate, so you can get it programmatically as well.
+
+---
 
 **Reference:** [Data Cloud Connectors and Integrations (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/data-cloud-connectors-and-integrations)
 
