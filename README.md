@@ -101,6 +101,10 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
 
 8. **Click "Fetch LOTR Data 📜"** to load characters and quotes from The One API
 
+![The One API Homepage](assets/lotrapihome.png)
+*The One API - Results of our Middle-earth data*
+
+
 **Important:** You can only ingest data once your Data 360 setup is complete (Steps 1-10 and Identity Resolution).
 
 9. **Click "Send Characters 🌋"** to ingest character data into Data 360
@@ -419,14 +423,16 @@ Data Lake Objects (DLOs) are automatically created when you deploy a Data Stream
 
 1. Navigate to **Data Cloud Setup** → **Data Streams** → Select `lotr-LotrCharacter`
 2. Click the **Data Lake Object** tab
-3. Note the **DLO API Name** (format: `lotr_LotrCharacter_{orgId}__dlm`)
+3. Click on **Mapping** to configure the DLO mapping
+4. Note the **DLO API Name** (format: `lotr_LotrCharacter_{orgId}__dlm`)
 
 ![LotrCharacter DLO Mapping](assets/dcstream_newlotrchardlomap.png)
-*Data Lake Object (DLO) for LotrCharacter - this is automatically created from the Data Stream*
+*Click on Mapping to configure the Data Lake Object (DLO) mapping for LotrCharacter*
 
-4. **For Account DLO**:
+5. **For Account DLO**:
    - Navigate to **Data Cloud Setup** → **Data Streams** → Select your Account CRM data stream
    - Click the **Data Lake Object** tab
+   - Click on **Mapping** to configure the DLO mapping
    - Note the **DLO API Name** (format: `Account_{orgId}__dlm`)
 
 **Note:** DLOs are the underlying storage layer in Data Cloud. When you create a Data Stream, the DLO is automatically created. You don't manually create DLOs - they're generated from your Data Stream configuration.
