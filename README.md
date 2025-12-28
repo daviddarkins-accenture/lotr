@@ -427,9 +427,9 @@ lotr/
 **License:** MIT - This is a learning POC, not a production system.
 
 **Documentation:**
-- [Data Cloud Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_quick_start.htm)
-- [Data Cloud Connectors and Integrations (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/data-cloud-connectors-and-integrations)
-- [Data Cloud Quick Look (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/data-cloud-quick-look)
+- [Data Cloud Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/)
+- [Data Cloud Connectors and Integrations (Trailhead)](https://trailhead.salesforce.com/en/content/learn/modules/data-cloud-connectors-and-integrations)
+- [Data Cloud Quick Look (Trailhead)](https://trailhead.salesforce.com/en/content/learn/modules/data-cloud-quick-look)
 - [The One API Documentation](https://the-one-api.dev/documentation)
 
 ---
