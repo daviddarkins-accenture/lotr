@@ -265,8 +265,24 @@ This POC demonstrates how to show Data 360 data directly on Salesforce record pa
 
 ### Step 3: Create Data Stream for LotrCharacter (Profile)
 
-1. In your **Ingestion API Connector** (`lotr`), click **Create Data Stream**
-2. Configure the data stream:
+1. Navigate to **Data Cloud Setup** → **Data Streams** → **New**
+
+![Data Streams New](assets/dcstream_new.png)
+*Navigate to Data Streams → New*
+
+2. **Select your connector**:
+   - In the **Connector** dropdown, select `lotr` (the connector you created in Step 2)
+
+![Select LOTR Connector](assets/dcstream_newlotr.png)
+*Select the lotr connector*
+
+3. **Select the object**:
+   - In the **Object** dropdown, select `LotrCharacter`
+
+![Select LotrCharacter Object](assets/dcstream_newlotrchar.png)
+*Select LotrCharacter object*
+
+4. Configure the data stream:
 
    | Setting | Value | Notes |
    |---------|-------|-------|
@@ -276,17 +292,17 @@ This POC demonstrates how to show Data 360 data directly on Salesforce record pa
    | **Record Modified Field** | `ingestedAt` | DateTime field for change detection |
    | **Refresh Mode** | `Upsert` | Updates existing records or creates new ones |
 
-3. **Field Mappings** (if prompted):
+5. **Field Mappings** (if prompted):
    - Verify all fields from your schema are mapped correctly
    - Ensure `characterId` is set as the Primary Key
    - Ensure `ingestedAt` is set as the Record Modified Field
 
-4. **Deploy** the data stream:
+6. **Deploy** the data stream:
    - Click **Deploy**
    - Wait for deployment to complete (typically 1-2 minutes)
    - Status should show "Deployed" or "Active"
 
-5. **Note the Data Lake Object API Name**:
+7. **Note the Data Lake Object API Name**:
    - After deployment, go to **Data Streams** → Select `lotr-LotrCharacter`
    - Click the **Data Lake Object** tab
    - Copy the **API Name** (format: `lotr_LotrCharacter_{orgId}__dlm`)
@@ -302,10 +318,17 @@ This POC demonstrates how to show Data 360 data directly on Salesforce record pa
    - Click **Edit** → **Upload Schema** (or **Add Schema**)
    - Upload the file: `schema/lotr_quote.yaml`
    - This adds the `LotrQuote` object definition
+   - **Save** the connector
 
 2. **Create Data Stream for Quotes**:
-   - In the connector, click **Create Data Stream** again
-   - Configure the data stream:
+   - Navigate to **Data Cloud Setup** → **Data Streams** → **New**
+   - In the **Connector** dropdown, select `lotr`
+   - In the **Object** dropdown, select `LotrQuote`
+
+![Select LotrQuote Object](assets/dcstream_newlotrquote.png)
+*Select LotrQuote object for Engagement data stream*
+
+3. Configure the data stream:
 
    | Setting | Value | Notes |
    |---------|-------|-------|
@@ -315,7 +338,7 @@ This POC demonstrates how to show Data 360 data directly on Salesforce record pa
    | **Event Time Field** | `ingestedAt` | Required for Engagement category |
    | **Refresh Mode** | `Upsert` | Updates existing records or creates new ones |
 
-3. **Deploy** the quote data stream:
+4. **Deploy** the quote data stream:
    - Click **Deploy**
    - Wait for deployment to complete
 
