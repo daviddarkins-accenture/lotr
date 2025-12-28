@@ -483,28 +483,37 @@ Mapping Account to LotrCharacter creates a relationship that enables:
 
 **Reference:** [Data Lake Objects in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_data_lake_objects.htm)
 
-### Step 8: Configure Identity Resolution
+### Step 9: Configure Identity Resolution
 
 Identity Resolution links Data Cloud profiles to Salesforce records (Person Accounts in this case).
 
 1. Navigate to **Identity Resolution** → **New**
 
-![Identity Resolution Start](assets/dcidentitystart.png)
-*Navigate to Identity Resolution to configure matching rules*
+![Identity Resolution Start](assets/dcidentitystart1.png)
+*Navigate to Identity Resolution and click New*
 
 2. **Create or Edit Identity Resolution Rule**:
    - If no rule exists, click **New**
    - If a default rule exists, click **Edit**
 
+![Create Identity Resolution Rule](assets/dcidentitystart2.png)
+*Create or edit an Identity Resolution rule*
+
 3. **Configure Matching**:
    - **Match Type**: Select how to match profiles to Salesforce records
    - For this POC, we'll use **External ID** matching via the custom field
+
+![Configure Matching](assets/dcidentitystart3.png)
+*Configure matching type - use External ID matching*
 
 4. **Add Matching Rule**:
    - **Source Field**: `LotrCharacter.characterId`
    - **Target Field**: `Account.characterId__c` (custom field deployed in Step 5)
    - **Match Type**: Exact Match
    - **Priority**: 1
+
+![Add Matching Rule](assets/dcidentitystart4.png)
+*Add matching rule: LotrCharacter.characterId → Account.characterId__c*
 
 5. **Enable the Rule**:
    - Toggle the rule to **Active**
