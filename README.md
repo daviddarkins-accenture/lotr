@@ -484,24 +484,16 @@ This relationship enables Identity Resolution and allows Data Cloud to match cha
 
 Link the LotrCharacter DMO to the Account DMO so that Data Cloud can match characters to Salesforce Accounts.
 
-1. Navigate to **Data Cloud Setup** → **Data Model Objects** → Select `LotrCharacter`
+1. Navigate to **Data Streams** → Select `lotr-LotrCharacter` → **Mappings**
 
-![Add Account to LotrCharacter DMO](assets/dcstream_newlotrchardmoaccount.png)
-*Add Account relationship to LotrCharacter DMO*
+2. Click the **Data Mapping** section and press **Start**
 
-2. **Add Account Relationship**:
-   - Click **Add Relationship** or **Edit Relationships**
-   - **Related DMO**: Select `Account`
-   - **Relationship Type**: **One-to-One** or **Many-to-One**
+3. Click **Data Mapping Entities**
 
-3. **Configure Field Mapping**:
-   - **Source Field**: `LotrCharacter.characterId`
-   - **Target Field**: `Account.characterId__c` (the custom field we deployed in Step 5)
+![Data Mapping Entities](assets/dcstream_newlotrchardmoaccountstart.png)
+*Click Data Mapping Entities to add Account mapping*
 
-![Configure Account Mapping](assets/dcstream_newlotrchardmoaccountmapping.png)
-*Map characterId from LotrCharacter to characterId__c on Account*
-
-4. **Save** the relationship
+4. **Select Object** and choose **Account**
 
 **Reference:** [DMO Relationships in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_dmo_relationships.htm)
 
