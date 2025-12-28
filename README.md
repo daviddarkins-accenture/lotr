@@ -419,7 +419,7 @@ To link Data Cloud profiles to Salesforce Accounts, we need to add the Account o
 
 ### Step 7: Create DLO (Data Lake Object) for Data Streams
 
-Data Lake Objects (DLOs) are automatically created when you deploy a Data Stream. However, we need to configure the DLO mapping to link Data Cloud profiles to Salesforce records. We'll work with the DLOs for both the LotrCharacter and Account data streams.
+Data Lake Objects (DLOs) are automatically created when you deploy a Data Stream. However, we need to configure the DLO mapping to link Data Cloud profiles to Salesforce records. We'll work with the DLOs for LotrCharacter, LotrQuote, and Account data streams.
 
 1. Navigate to **Data Cloud Setup** → **Data Streams** → Select `lotr-LotrCharacter`
 2. Click the **Data Mapping** section and press **Start** (or **Deploy**)
