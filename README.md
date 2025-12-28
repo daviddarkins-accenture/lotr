@@ -95,17 +95,16 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
    ```
    http://localhost:5001
    ```
-![API Explorer](assets/lotrapihome_start.png)
-*Data 360 Data Stream configuration*
+
+![LOTR API Explorer](assets/lotrapihome_start.png)
+*The One API - Source of our Middle-earth data*
+
 8. **Click "Fetch LOTR Data 📜"** to load characters and quotes from The One API
 
 **Important:** You can only ingest data once your Data 360 setup is complete (Steps 1-10 and Identity Resolution).
 
 9. **Click "Send Characters 🌋"** to ingest character data into Data 360
 10. **Click "Send Quotes 💬"** to ingest quotes into Data 360 (required for Related Lists!)
-
-
-
 
 ## 📦 Project Structure
 
