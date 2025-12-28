@@ -399,6 +399,9 @@ Data Cloud Related Lists allow you to display Engagement data (quotes) directly 
 
 Deploy the custom fields, permission sets, flows, and page layouts to your Salesforce org.
 
+![LOTR API Homepage](assets/lotrapihome_start.png)
+*The One API - Source of our Middle-earth data*
+
 1. **Authenticate with Salesforce CLI**:
    ```bash
    cd SFDC/lotr
