@@ -442,11 +442,25 @@ Data Lake Objects (DLOs) are automatically created when you deploy a Data Stream
 
 5. Note the **DLO API Name** (format: `lotr_LotrCharacter_{orgId}__dlm`)
 
-6. **For Account DLO**:
+6. **Add Relationships**:
+   - In the DLO mapping configuration, add a relationship to link LotrCharacter to Account
+   - This relationship enables Identity Resolution and allows Data Cloud to match characters to Salesforce Person Accounts
+
+![Add Account Relationship to LotrCharacter DLO](assets/dcstream_newlotrchardmoaccount.png)
+*Add Account relationship to LotrCharacter DLO mapping*
+
+7. **For Account DLO**:
    - Navigate to **Data Cloud Setup** → **Data Streams** → Select your Account CRM data stream
    - Click the **Data Mapping** section and press **Start**
    - Click **Select Object** and choose **Account**
    - Note the **DLO API Name** (format: `Account_{orgId}__dlm`)
+
+**Why map Account to Characters?**
+Mapping Account to LotrCharacter creates a relationship that enables:
+- **Identity Resolution**: Links Data Cloud profiles (LotrCharacter) to Salesforce CRM records (Person Accounts)
+- **Unified Profiles**: Allows Data Cloud to create unified customer profiles combining external data (LOTR characters) with CRM data (Accounts)
+- **Data Actions**: Enables automated workflows (like the Flow that creates Person Accounts) when characters are ingested
+- **Related Lists**: Allows Engagement data (quotes) to display on Account pages by linking through the characterId field
 
 **Note:** DLOs are the underlying storage layer in Data Cloud. When you create a Data Stream, the DLO is automatically created. You don't manually create DLOs - they're generated from your Data Stream configuration.
 
