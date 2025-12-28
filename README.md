@@ -48,13 +48,17 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
    ```
 
 4. **Set up Salesforce Data 360** (see [Salesforce Data 360 Setup](#-salesforce-data-360-setup) section below):
-   - Create OAuth Connected App (Step 1)
-   - Create Ingestion API Connector with `LotrCharacter` schema (Step 2)
-   - Create Data Stream for `LotrCharacter` - Profile category (Step 3)
-   - Create Data Stream for `LotrQuote` - Engagement category (Step 4)
-   - Configure Identity Resolution (Step 5)
-   - Configure Data Cloud Related Lists (Step 6)
-   - Deploy Salesforce metadata (Step 7)
+   - Step 1: Create OAuth Connected App
+   - Step 2: Create Ingestion API Connector (upload `lotr_schema.yaml`)
+   - Step 3: Create Data Stream for `LotrCharacter` (Profile category)
+   - Step 4: Create Data Stream for `LotrQuote` (Engagement category)
+   - Step 5: Deploy Custom Account Fields and Permission Set
+   - Step 6: Add Salesforce CRM Account to Data Stream
+   - Step 7: Create DLO for Data Streams
+   - Step 8: Add Account Mapping to LotrCharacter DMO
+   - Step 9: Configure Data Cloud Related Lists
+   - Step 10: Deploy Remaining Salesforce Metadata
+   - Configure Identity Resolution (separate section after Step 10)
 
 5. **Configure environment variables:**
    
