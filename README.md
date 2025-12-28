@@ -24,11 +24,7 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
 
 - Python 3.8+
 - A LOTR API key ([sign up here](https://the-one-api.dev/sign-up))
-- Salesforce Data 360 org with:
-  - Ingestion API connector configured
-  - OAuth Connected App with client credentials
-  - Source API Name: `lotr`
-  - Object API Names: `LotrCharacter`, `LotrQuote`
+- Salesforce Data 360 org with admin access
 
 ### Installation
 
@@ -51,7 +47,12 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
    pip install -r requirements.txt
    ```
 
-4. **Configure environment variables:**
+4. **Set up Salesforce Data 360** (see [Salesforce Data 360 Setup](#-salesforce-data-360-setup) section below):
+   - Create OAuth Connected App
+   - Create Ingestion API Connector (Source API Name: `lotr`)
+   - Create Data Streams for `LotrCharacter` and `LotrQuote`
+
+5. **Configure environment variables:**
    
    Option A - Use the setup wizard:
    ```bash
@@ -65,21 +66,21 @@ A Python-based proof-of-concept that ingests Lord of the Rings character data fr
    # Edit .env with your actual credentials
    ```
 
-5. **Start the Flask app:**
+6. **Start the Flask app:**
    ```bash
    python app.py
    ```
    
    Or use the quick start script: `./start.sh`
 
-6. **Open your browser:**
+7. **Open your browser:**
    ```
    http://localhost:5001
    ```
 
-7. **Click "Fetch LOTR Data 📜"** to load characters and quotes
-8. **Click "Send Characters 🌋"** to ingest character data
-9. **Click "Send Quotes 💬"** to ingest quotes (for Related Lists!)
+8. **Click "Fetch LOTR Data 📜"** to load characters and quotes
+9. **Click "Send Characters 🌋"** to ingest character data
+10. **Click "Send Quotes 💬"** to ingest quotes (for Related Lists!)
 
 ![Data Cloud Setup](assets/dcsetup.png)
 *Data 360 Data Stream configuration*
