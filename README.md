@@ -382,9 +382,9 @@ Before linking Data Cloud to Salesforce CRM, we need to deploy the custom fields
 
 **Reference:** [Deploy Metadata with Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_commands.htm)
 
-### Step 6: Add Account to Data Stream
+### Step 6: Add Salesforce CRM Account to Data Stream
 
-To link Data Cloud profiles to Salesforce Accounts, we need to add the Account object to the Data Stream.
+To link Data Cloud profiles to Salesforce Accounts, we need to add the Account object from Salesforce CRM to the Data Stream.
 
 1. Navigate to **Data Cloud Setup** → **Data Streams** → **New**
 
@@ -409,25 +409,25 @@ To link Data Cloud profiles to Salesforce Accounts, we need to add the Account o
 
 **Reference:** [Add CRM Data to Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_add_crm_data.htm)
 
-### Step 7: Create DMO for Data Streams
+### Step 7: Create DLO (Data Lake Object) for Data Streams
 
-Data Model Objects (DMOs) are required to link Data Cloud profiles to Salesforce records. We need to create DMOs for both the LotrCharacter and Account data streams.
+Data Lake Objects (DLOs) are automatically created when you deploy a Data Stream. However, we need to configure the DLO mapping to link Data Cloud profiles to Salesforce records. We'll work with the DLOs for both the LotrCharacter and Account data streams.
 
-1. Navigate to **Data Cloud Setup** → **Data Model Objects** → **New**
+1. Navigate to **Data Cloud Setup** → **Data Streams** → Select `lotr-LotrCharacter`
+2. Click the **Data Lake Object** tab
+3. Note the **DLO API Name** (format: `lotr_LotrCharacter_{orgId}__dlm`)
 
-2. **Create DMO for LotrCharacter**:
-   - **Name**: `LotrCharacter`
-   - **Data Stream**: Select `lotr-LotrCharacter`
-   - **Category**: **Profile**
-   - **Primary Key**: `characterId`
+![LotrCharacter DLO Mapping](assets/dcstream_newlotrchardlomap.png)
+*Data Lake Object (DLO) for LotrCharacter - this is automatically created from the Data Stream*
 
-3. **Create DMO for Account**:
-   - **Name**: `Account`
-   - **Data Stream**: Select the Account CRM data stream you created in Step 6
-   - **Category**: **Profile**
-   - **Primary Key**: `Id`
+4. **For Account DLO**:
+   - Navigate to **Data Cloud Setup** → **Data Streams** → Select your Account CRM data stream
+   - Click the **Data Lake Object** tab
+   - Note the **DLO API Name** (format: `Account_{orgId}__dlm`)
 
-**Reference:** [Data Model Objects in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_data_model_objects.htm)
+**Note:** DLOs are the underlying storage layer in Data Cloud. When you create a Data Stream, the DLO is automatically created. You don't manually create DLOs - they're generated from your Data Stream configuration.
+
+**Reference:** [Data Lake Objects in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_data_lake_objects.htm)
 
 ### Step 8: Add Account Mapping to LotrCharacter DMO
 
