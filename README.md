@@ -253,13 +253,13 @@ This POC demonstrates how to show Data 360 data directly on Salesforce record pa
 2. Configure the connector:
    - **Connector API Name**: `lotr` (must match your `.env` file `DATA_CLOUD_SOURCE_NAME`)
    - **Description**: "LOTR Character and Quote Data"
-3. **Upload Schema**:
+3. **Upload Character Schema** (first schema):
    - Click **Upload Schema**
    - Upload the file: `schema/lotr_character.yaml`
    - This creates the `LotrCharacter` object definition
 4. **Save** the connector
 
-**Note:** You'll create a second schema for quotes later. For now, we're setting up the character (Profile) data stream first.
+**Note:** This connector will eventually contain both character and quote schemas. We're starting with the character schema here. The quote schema (`lotr_quote.yaml`) will be added in Step 4 when we create the Engagement data stream.
 
 **Reference:** [Create an Ingestion API Connector](https://help.salesforce.com/s/articleView?id=sf.c360a_ingestion_api_connector.htm)
 
