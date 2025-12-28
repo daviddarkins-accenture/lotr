@@ -483,22 +483,41 @@ Mapping Account to LotrCharacter creates a relationship that enables:
 
 **Reference:** [Data Lake Objects in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_data_lake_objects.htm)
 
-### Step 8: Add Account Mapping to LotrCharacter DMO
+### Step 8: Configure Identity Resolution
 
-Link the LotrCharacter DMO to the Account DMO so that Data Cloud can match characters to Salesforce Accounts.
+Identity Resolution links Data Cloud profiles to Salesforce records (Person Accounts in this case).
 
-1. Navigate to **Data Streams** → Select `lotr-LotrCharacter` → **Mappings**
+1. Navigate to **Data Cloud Setup** → **Identity Resolution** → **Identity Resolution Rules**
 
-2. Click the **Data Mapping** section and press **Start**
+![Identity Resolution Start](assets/dcidentitystart.png)
+*Navigate to Identity Resolution to configure matching rules*
 
-3. Click **Data Mapping Entities**
+2. **Create or Edit Identity Resolution Rule**:
+   - If no rule exists, click **New**
+   - If a default rule exists, click **Edit**
 
-![Data Mapping Entities](assets/dcstream_newlotrchardmoaccountstart.png)
-*Click Data Mapping Entities to add Account mapping*
+3. **Configure Matching**:
+   - **Match Type**: Select how to match profiles to Salesforce records
+   - For this POC, we'll use **External ID** matching via the custom field
 
-4. **Select Object** and choose **Account**
+4. **Add Matching Rule**:
+   - **Source Field**: `LotrCharacter.characterId`
+   - **Target Field**: `Account.characterId__c` (custom field deployed in Step 5)
+   - **Match Type**: Exact Match
+   - **Priority**: 1
 
-**Reference:** [DMO Relationships in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_dmo_relationships.htm)
+5. **Enable the Rule**:
+   - Toggle the rule to **Active**
+   - **Save** the rule
+
+6. **Run Identity Resolution** (optional, for existing data):
+   - Navigate to **Data Cloud Setup** → **Identity Resolution** → **Run Identity Resolution**
+   - Select your rule and click **Run**
+   - This links existing Data Cloud profiles to Salesforce Accounts
+
+**Note:** Identity Resolution runs automatically when new profiles are created, but you may need to run it manually for existing data.
+
+**Reference:** [Identity Resolution in Data Cloud](https://help.salesforce.com/s/articleView?id=sf.c360a_identity_resolution.htm)
 
 ### Step 9: Configure Data Cloud Related Lists
 
