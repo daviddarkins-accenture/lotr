@@ -1,0 +1,99 @@
+# LOTR Data Cloud Ingestion API Schema
+# OpenAPI 3.0.x format for Data Cloud Ingestion API
+# Contains: LotrCharacter + LotrQuote (Engagement DMO)
+
+openapi: 3.0.3
+info:
+  title: LOTR Data
+  description: Lord of the Rings data from The One API - Characters and Quotes
+  version: 1.0.0
+
+components:
+  schemas:
+    # ═══════════════════════════════════════════════════════════════
+    # CHARACTER DMO
+    # ═══════════════════════════════════════════════════════════════
+    LotrCharacter:
+      type: object
+      properties:
+        characterId:
+          type: string
+          description: Unique identifier from LOTR API (_id field)
+        
+        name:
+          type: string
+          description: Character name (e.g., "Frodo Baggins")
+        
+        race:
+          type: string
+          description: Character race (e.g., "Hobbit", "Elf", "Human")
+        
+        gender:
+          type: string
+          description: Character gender (e.g., "Male", "Female")
+        
+        birth:
+          type: string
+          description: Birth date/era as free text (e.g., "TA 2968")
+        
+        death:
+          type: string
+          description: Death date/era as free text
+        
+        realm:
+          type: string
+          description: Character's realm or homeland (e.g., "The Shire")
+        
+        wikiUrl:
+          type: string
+          format: url
+          description: External wiki link for character
+        
+        height:
+          type: string
+          description: Character height as free text
+        
+        hair:
+          type: string
+          description: Hair description
+        
+        spouse:
+          type: string
+          description: Spouse name if applicable
+        
+        ingestedAt:
+          type: string
+          format: date-time
+          description: Timestamp when record was ingested into Data Cloud
+
+    # ═══════════════════════════════════════════════════════════════
+    # QUOTE DMO (Engagement - for Related Lists)
+    # ═══════════════════════════════════════════════════════════════
+    LotrQuote:
+      type: object
+      properties:
+        quoteId:
+          type: string
+          description: Unique identifier for the quote (characterId_index)
+        
+        characterId:
+          type: string
+          description: Character ID - links to Account for Related List
+        
+        dialog:
+          type: string
+          description: The actual quote/dialog text
+        
+        movie:
+          type: string
+          description: Movie the quote is from (e.g., "The Return of the King")
+        
+        characterName:
+          type: string
+          description: Name of the character who said the quote
+        
+        ingestedAt:
+          type: string
+          format: date-time
+          description: Timestamp when record was ingested into Data Cloud
+

@@ -1,0 +1,53 @@
+# LOTR Quote Ingestion API Schema
+# OpenAPI 3.0.x format for Data Cloud Ingestion API
+# Category: Engagement (required for Related Lists)
+#
+# Requirements checklist:
+# ✅ OpenAPI 3.0.x format
+# ✅ No nested objects (flat structure)
+# ✅ DateTime field present (ingestedAt) - required for engagement category
+# ✅ Primary key (quoteId) for idempotent upserts
+# ✅ Foreign key (characterId) to link to Account
+
+openapi: 3.0.3
+info:
+  title: LOTR Quote Data
+  description: Lord of the Rings character quotes - Engagement DMO for Related Lists
+  version: 1.0.0
+
+components:
+  schemas:
+    LotrQuote:
+      type: object
+      properties:
+        # Primary Key - unique identifier for each quote
+        quoteId:
+          type: string
+          description: Unique identifier for the quote (generated from characterId + index)
+        
+        # Foreign Key - links to Account (Person Account ID = characterId)
+        characterId:
+          type: string
+          description: Character ID that maps to Account ID for Related List relationship
+        
+        # Quote content
+        dialog:
+          type: string
+          description: The actual quote/dialog text
+        
+        movie:
+          type: string
+          description: Movie the quote is from (e.g., "The Return of the King")
+        
+        # Character info (denormalized for display in related list)
+        characterName:
+          type: string
+          description: Name of the character who said the quote
+        
+        # DateTime field - ISO 8601 UTC format
+        # Required for Engagement category
+        ingestedAt:
+          type: string
+          format: date-time
+          description: Timestamp when record was ingested into Data Cloud
+

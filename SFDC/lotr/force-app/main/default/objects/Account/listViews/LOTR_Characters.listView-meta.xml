@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LOTR_Characters</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>characterId__c</columns>
+    <columns>Death__c</columns>
+    <columns>Gender__c</columns>
+    <columns>Race__c</columns>
+    <columns>Realm__c</columns>
+    <columns>Hair__c</columns>
+    <columns>Height__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>characterId__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>LOTR Characters</label>
+</ListView>

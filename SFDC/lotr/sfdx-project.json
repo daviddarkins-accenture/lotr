@@ -1,0 +1,12 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true
+    }
+  ],
+  "name": "lotr",
+  "namespace": "",
+  "sfdcLoginUrl": "https://accenture-genaihub--lotr.sandbox.my.salesforce.com",
+  "sourceApiVersion": "65.0"
+}

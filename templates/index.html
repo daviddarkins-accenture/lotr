@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOTR Data 360 Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>LOTR-themed Data 360 Demo</h1>
+            <p class="subtitle">This is just a local control panel for fun learning.</p>
+        </header>
+
+        <!-- Step 1: Fetch from API -->
+        <section id="fetchSection" class="controls">
+            <button id="fetchBtn" class="btn">
+                <span class="btn-icon">📜</span>Fetch LOTR Data
+            </button>
+            <button id="wipeBtn" class="btn btn-secondary">
+                <span class="btn-icon">🧹</span>Wipe LOTR Data
+            </button>
+        </section>
+
+        <div id="spinner" class="spinner" style="display: none;">
+            <div class="spinner-ring"></div>
+            <p id="spinnerText">Fetching from The One API...</p>
+        </div>
+
+        <!-- Step 2: Preview & Confirm -->
+        <section id="previewSection" class="panel preview-panel" style="display: none;">
+            <div class="preview-header">
+                <h2>📜 Preview: Data from The One API</h2>
+                <div class="view-toggle">
+                    <button id="fancyViewBtn" class="toggle-btn active" title="Fancy View">
+                        <span>✨</span> Fancy
+                    </button>
+                    <button id="jsonViewBtn" class="toggle-btn" title="Raw JSON">
+                        <span>{ }</span> JSON
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Fancy View -->
+            <div id="fancyView">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="statCharacters">0</div>
+                    <div class="stat-label">Characters</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statQuotes">0</div>
+                    <div class="stat-label">Quotes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statMovies">0</div>
+                    <div class="stat-label">Movies</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statSpeakers">0</div>
+                    <div class="stat-label">Speaking Chars</div>
+                </div>
+            </div>
+
+            <div class="preview-tabs">
+                <button class="tab-btn active" data-tab="characters">Characters</button>
+                <button class="tab-btn" data-tab="movies">Movies</button>
+            </div>
+
+            <div id="charactersTab" class="tab-content active">
+                <div class="search-box">
+                    <input type="text" id="characterSearch" placeholder="🔍 Search characters by name, race, or realm...">
+                </div>
+                
+                <!-- Character Detail Panel -->
+                <div id="characterDetail" class="character-detail" style="display: none;"></div>
+                
+                <div id="characterList" class="character-list"></div>
+            </div>
+
+            <div id="moviesTab" class="tab-content">
+                <div id="movieList" class="movie-list"></div>
+            </div>
+            </div><!-- end fancyView -->
+
+            <!-- Raw JSON View -->
+            <div id="jsonView" class="json-view" style="display: none;">
+                <div class="json-tabs">
+                    <button class="json-tab-btn active" data-json="characters">Characters</button>
+                    <button class="json-tab-btn" data-json="movies">Movies</button>
+                    <button class="json-tab-btn" data-json="stats">Stats</button>
+                    <button class="json-tab-btn" data-json="all">All Data</button>
+                </div>
+                <div class="json-toolbar">
+                    <button id="copyJsonBtn" class="copy-btn" title="Copy to clipboard">📋 Copy</button>
+                    <span id="jsonCount" class="json-count"></span>
+                </div>
+                <pre id="jsonPreview" class="json-output"></pre>
+            </div>
+
+            <div class="confirm-controls">
+                <button id="confirmBtn" class="btn btn-confirm">
+                    <span class="btn-icon">🌋</span>Send Characters
+                </button>
+                <button id="confirmQuotesBtn" class="btn btn-quotes">
+                    <span class="btn-icon">💬</span>Send Quotes
+                </button>
+                <button id="cancelBtn" class="btn btn-cancel">
+                    Cancel
+                </button>
+            </div>
+        </section>
+
+        <section id="summarySection" class="panel" style="display: none;">
+            <h2>📊 Ingestion Summary</h2>
+            <pre id="summaryPanel" class="json-output"></pre>
+        </section>
+
+        <section id="logSection" class="panel" style="display: none;">
+            <h2>📝 Activity Log</h2>
+            <div id="logPanel" class="log-output"></div>
+        </section>
+
+        <footer class="footer">
+            <p>"Even the smallest person can change the course of the future."</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

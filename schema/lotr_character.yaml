@@ -1,0 +1,82 @@
+# LOTR Character Ingestion API Schema
+# OpenAPI 3.0.x format for Data Cloud Ingestion API
+#
+# Requirements checklist:
+# ✅ OpenAPI 3.0.x format
+# ✅ No nested objects (flat structure)
+# ✅ At least 1 object with at least 1 field
+# ✅ Object name ≤ 80 chars (LotrCharacter = 13 chars)
+# ✅ Object name: only a-z, A-Z, 0-9, _, -
+# ✅ Field names: only a-z, A-Z, 0-9, _, -
+# ✅ Field names ≤ 80 chars
+# ✅ No reserved words (date_id, location_id, etc.)
+# ✅ No __ in field names
+# ✅ DateTime field present (ingestedAt) - required for engagement category
+
+openapi: 3.0.3
+info:
+  title: LOTR Character Data
+  description: Lord of the Rings character data from The One API
+  version: 1.0.0
+
+components:
+  schemas:
+    LotrCharacter:
+      type: object
+      properties:
+        # Primary Key - required for idempotent upserts
+        characterId:
+          type: string
+          description: Unique identifier from LOTR API (_id field)
+        
+        # Required field
+        name:
+          type: string
+          description: Character name (e.g., "Frodo Baggins")
+        
+        # Optional fields - all text/string type
+        race:
+          type: string
+          description: Character race (e.g., "Hobbit", "Elf", "Human")
+        
+        gender:
+          type: string
+          description: Character gender (e.g., "Male", "Female")
+        
+        birth:
+          type: string
+          description: Birth date/era as free text (e.g., "TA 2968")
+        
+        death:
+          type: string
+          description: Death date/era as free text
+        
+        realm:
+          type: string
+          description: Character's realm or homeland (e.g., "The Shire")
+        
+        # URL type with proper format
+        wikiUrl:
+          type: string
+          format: url
+          description: External wiki link for character
+        
+        height:
+          type: string
+          description: Character height as free text
+        
+        hair:
+          type: string
+          description: Hair description
+        
+        spouse:
+          type: string
+          description: Spouse name if applicable
+        
+        # DateTime field - ISO 8601 UTC format
+        # Required format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+        ingestedAt:
+          type: string
+          format: date-time
+          description: Timestamp when record was ingested into Data Cloud
+

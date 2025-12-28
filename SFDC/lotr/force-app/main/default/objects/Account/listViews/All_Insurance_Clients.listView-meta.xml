@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Insurance_Clients</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>ACCOUNT.ACCOUNT_NUMBER</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>PC_ADDRESS2_STREET</columns>
+    <columns>PC_ADDRESS2_STATE</columns>
+    <columns>PC_ADDRESS2_COUNTRY</columns>
+    <columns>ACCOUNT.LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT_SOURCE</field>
+        <operation>equals</operation>
+        <value>StateFarm</value>
+    </filters>
+    <label>All Insurance Clients</label>
+</ListView>
