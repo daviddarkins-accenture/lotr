@@ -290,21 +290,6 @@ DLOs are automatically created when you deploy Data Streams, but mapping to Sale
    - Display Fields: `dialog`, `movie`, `characterName`, `ingestedAt`
 3. Save
 
-**Add Related List to Account Page Layout:**
-
-After creating the Related List in Data Cloud, you need to manually add it to the Account page layout:
-
-1. Navigate to **Setup** → **Object Manager** → **Account** → **Page Layouts** → **Account Layout** (or your custom layout)
-2. Click **Edit** on the layout
-3. In the **Related Lists** section, click **Related Lists** in the palette
-4. Drag **Quotes** (or `lotr_LotrQuote__r`) to the Related Lists section on the layout
-5. Save the layout
-
-![Adding Quotes Related List to Account Page Layout](assets/tb_relatedlist.png)
-*Configuring the Dynamic Related List component: Select "Quotes" (lotr_LotrQuote__r) from the Related List dropdown*
-
-**Reference:** [Data Cloud Related Lists](https://help.salesforce.com/s/articleView?id=sf.c360a_related_lists.htm)
-</details>
 
 ### Step 10: Deploy Remaining Salesforce Metadata
 
@@ -323,6 +308,22 @@ sf project deploy start --source-dir force-app/main/default/flexipages
 ```
 
 **Activate Flow:** Setup → Flows → `lotrCreateAccount` → Activate
+
+**Add Related List to Account Page Layout:**
+
+After creating the Related List in Data Cloud, you need to manually add it to the Account page layout:
+
+1. Navigate to **Setup** → **Object Manager** → **Account** → **Page Layouts** → **Account Layout** (or your custom layout)
+2. Click **Edit** on the layout
+3. In the **Related Lists** section, click **Related Lists** in the palette
+4. Drag **Quotes** (or `lotr_LotrQuote__r`) to the Related Lists section on the layout
+5. Save the layout
+
+![Adding Quotes Related List to Account Page Layout](assets/tb_relatedlist.png)
+*Configuring the Dynamic Related List component: Select "Quotes" (lotr_LotrQuote__r) from the Related List dropdown*
+
+**Reference:** [Data Cloud Related Lists](https://help.salesforce.com/s/articleView?id=sf.c360a_related_lists.htm)
+</details>
 
 **Reference:** [Deploy Metadata with Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_commands.htm)
 </details>
