@@ -6,15 +6,15 @@
 
 In Parts 1 and 2, we journeyed from the Shire to the Misty Mountains, ingesting a Lord of the Rings API into Data 360 and forging the two towers of data — Profiles and Engagements.
 
-But data in Data Cloud alone isn't the destination. The real magic happens when external data becomes first-class in Salesforce CRM.
+But data in Data 360 alone isn't the destination. The real magic happens when external data becomes first-class in Salesforce CRM.
 
-Here's what happens when Data Cloud meets CRM:
+Here's what happens when Data 360 meets CRM:
 
-🔗 **Identity Resolution** — Data Cloud unifies Treebeard's profile with a Salesforce Person Account using `characterId`
+🔗 **Identity Resolution** — Data 360 unifies Treebeard's profile with a Salesforce Person Account using `characterId`
 
-⚡ **Salesforce Flows** — When a new character lands in Data Cloud, a Flow automatically creates a Person Account in CRM
+⚡ **Salesforce Flows** — When a new character lands in Data 360, a Flow automatically creates a Person Account in CRM
 
-📋 **Related Lists** — Treebeard's 45 quotes appear directly on his Account page, powered by Data Cloud Engagement data
+📋 **Related Lists** — Treebeard's 45 quotes appear directly on his Account page, powered by Data 360 Engagement data
 
 🤖 **Agentforce** — AI agents can now query across both CRM data and external data in a single, unified profile
 

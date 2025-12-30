@@ -1,4 +1,4 @@
-# Medium Article 2 — The Two Towers: Forging Profiles and Engagements in Data Cloud
+# Medium Article 2 — The Two Towers: Forging Profiles and Engagements in Data 360
 
 *Part 2 of 3: Why the distinction between identity and activity data is everything*
 
@@ -6,7 +6,7 @@
 
 ## Recap: We Got the Data In
 
-In the previous article, we ingested a fan-made Lord of the Rings API into Salesforce Data Cloud using the Ingestion API.
+In the previous article, we ingested a fan-made Lord of the Rings API into Salesforce Data 360 using the Ingestion API.
 
 **933 characters. 2,383 quotes. No connector. No middleware.**
 
@@ -266,7 +266,7 @@ When you model correctly:
 - Related Lists can display engagement data on Account pages
 - AI agents can reason over both identity and activity
 
-In the final article, we'll look at what happens when this data leaves Data Cloud and enters CRM — and why that's where the real value appears.
+In the final article, we'll look at what happens when this data leaves Data 360 and enters CRM — and why that's where the real value appears.
 
 ---
 

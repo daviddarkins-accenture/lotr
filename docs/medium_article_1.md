@@ -2,7 +2,7 @@
 
 ---
 
-Salesforce Data Cloud / Data 360 is vast.
+Salesforce Data 360 / Data 360 is vast.
 
 On the surface, it feels welcoming. There are clear paths, familiar features, and plenty of well-documented entry points: connectors, starter use cases, clean demos where everything behaves exactly as you expect.
 
@@ -18,7 +18,7 @@ Eventually, the road becomes less well-travelled. And then… obscure.
 
 One question comes up again and again:
 
-> "Can Data Cloud / Data 360 consume this API? I don't see a connector for it."
+> "Can Data 360 / Data 360 consume this API? I don't see a connector for it."
 
 These APIs are often a cornerstone of an organisation's data strategy. They've been around for years. They speak HTTPS, return JSON and when they were built, Salesforce connectors weren't exactly top of mind.
 
@@ -89,7 +89,7 @@ The One API gives us two kinds of data we are going to use on this project:
 }
 ```
 
-This is messy, real-world data. Nulls everywhere. Inconsistent formatting. No pagination standards. Perfect for testing what Data Cloud can actually handle.
+This is messy, real-world data. Nulls everywhere. Inconsistent formatting. No pagination standards. Perfect for testing what Data 360 can actually handle.
 
 ## What Data 360 Gives You
 
@@ -103,7 +103,7 @@ The contract has three parts:
 
 ### 1. A Schema (OpenAPI 3.0)
 
-You define what your data looks like. Data 360 is strict about this — flat structures only, specific field types, required naming conventions. See the Data Cloud Developer Guide for the full spec.
+You define what your data looks like. Data 360 is strict about this — flat structures only, specific field types, required naming conventions. See the Data 360 Developer Guide for the full spec.
 
 ```yaml
 openapi: 3.0.3
@@ -160,11 +160,11 @@ Step 1: Get Salesforce token
 POST {auth_url}/services/oauth2/token
 → Returns: access_token, instance_url
 
-Step 2: Exchange for Data Cloud token
+Step 2: Exchange for Data 360 token
 POST {instance_url}/services/a360/token
 grant_type=urn:salesforce:grant-type:external:cdp
 subject_token={salesforce_token}
-→ Returns: JWT access_token, Data Cloud instance URL (*.c360a.salesforce.com)
+→ Returns: JWT access_token, Data 360 instance URL (*.c360a.salesforce.com)
 ```
 
 The second token is what you use for all Ingestion API calls. This isn't obvious from the documentation, and it's the first place most implementations fail.
@@ -185,7 +185,7 @@ Content-Type: application/json
 }
 ```
 
-I batch records (200 per request) and the API returns `202 Accepted` immediately. The data appears in Data Cloud after the Data Stream refreshes — typically 2-3 minutes.
+I batch records (200 per request) and the API returns `202 Accepted` immediately. The data appears in Data 360 after the Data Stream refreshes — typically 2-3 minutes.
 
 ## And It Worked
 
@@ -235,9 +235,9 @@ In the next article, we'll look at how to model this data — and why the distin
 
 **Further Reading:**
 
-- [Data Cloud Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_quick_start.htm)
-- [Data Cloud Connectors and Integrations (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/data-cloud-connectors-and-integrations)
-- [Data Cloud Quick Look (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/data-cloud-quick-look)
+- [Data 360 Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_quick_start.htm)
+- [Data 360 Connectors and Integrations (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/data-cloud-connectors-and-integrations)
+- [Data 360 Quick Look (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/data-cloud-quick-look)
 
 ---
 

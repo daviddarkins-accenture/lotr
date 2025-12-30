@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOTR Data Cloud Content Series — Review</title>
+    <title>LOTR Data 360 Content Series — Review</title>
     <style>
         :root {
             --bg-primary: #1a1a2e;
@@ -258,7 +258,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>LOTR Data Cloud Content Series</h1>
+        <h1>LOTR Data 360 Content Series</h1>
         <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem;">
             3 LinkedIn Posts + 3 Medium Articles — Combined Review Document
         </p>
@@ -282,15 +282,15 @@
             </div>
             
             <div class="image-container">
-                <img src="../assets/SFLOTR Characters.png" alt="Characters in Salesforce Data Cloud">
-                <div class="image-caption">Carousel 2: Characters in Salesforce Data Cloud</div>
+                <img src="../assets/SFLOTR Characters.png" alt="Characters in Salesforce Data 360">
+                <div class="image-caption">Carousel 2: Characters in Salesforce Data 360</div>
             </div>
 
             <h4>From the Shire to the Misty Mountains: How to Use Any API in Data 360</h4>
 
             <p>One question keeps coming up whenever I talk about consuming data in Data 360:</p>
 
-            <blockquote>"Can Data Cloud / Data 360 consume this API? There's no connector for it."</blockquote>
+            <blockquote>"Can Data 360 / Data 360 consume this API? There's no connector for it."</blockquote>
 
             <p>These APIs are often a cornerstone of an organisation's data strategy. They've been around for years. They speak HTTPS, return JSON — and when they were built, Salesforce connectors weren't exactly top of mind.</p>
 
@@ -329,7 +329,7 @@
             <h3>Medium Article 1 — Data 360 Ingestion API Part 1: From the Shire to the Misty Mountains</h3>
             <p style="color: var(--text-secondary); font-style: italic;">Part 1 of 3: What Data 360 gives you when there isn't a connector</p>
 
-            <p>Salesforce Data Cloud / Data 360 is vast.</p>
+            <p>Salesforce Data 360 / Data 360 is vast.</p>
 
             <p>On the surface, it feels welcoming. There are clear paths, familiar features, and plenty of well-documented entry points: connectors, starter use cases, clean demos where everything behaves exactly as you expect.</p>
 
@@ -345,7 +345,7 @@
 
             <p>One question comes up again and again:</p>
 
-            <blockquote>"Can Data Cloud / Data 360 consume this API? I don't see a connector for it."</blockquote>
+            <blockquote>"Can Data 360 / Data 360 consume this API? I don't see a connector for it."</blockquote>
 
             <p>These APIs are often a cornerstone of an organisation's data strategy. They've been around for years. They speak HTTPS, return JSON — and when they were built, Salesforce connectors weren't exactly top of mind.</p>
 
@@ -415,7 +415,7 @@
   "character": "5cd9d533844dc4c55e47afed"
 }</code></pre>
 
-            <p>This is messy, real-world data. Nulls everywhere. Inconsistent formatting. No pagination standards. Perfect for testing what Data Cloud can actually handle.</p>
+            <p>This is messy, real-world data. Nulls everywhere. Inconsistent formatting. No pagination standards. Perfect for testing what Data 360 can actually handle.</p>
 
             <h4>What Data 360 Gives You</h4>
 
@@ -429,7 +429,7 @@
 
             <p><strong>1. A Schema (<a href="https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_create_schema.htm">OpenAPI 3.0</a>)</strong></p>
 
-            <p>You define what your data looks like. Data 360 is strict about this — flat structures only, specific field types, required naming conventions. See the <a href="https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_quick_start.htm">Data Cloud Developer Guide</a> for the full spec.</p>
+            <p>You define what your data looks like. Data 360 is strict about this — flat structures only, specific field types, required naming conventions. See the <a href="https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_quick_start.htm">Data 360 Developer Guide</a> for the full spec.</p>
 
 <pre><code>openapi: 3.0.3
 info:
@@ -484,11 +484,11 @@ components:
 POST {auth_url}/services/oauth2/token
 → Returns: access_token, instance_url
 
-Step 2: Exchange for Data Cloud token
+Step 2: Exchange for Data 360 token
 POST {instance_url}/services/a360/token
 grant_type=urn:salesforce:grant-type:external:cdp
 subject_token={salesforce_token}
-→ Returns: JWT access_token, Data Cloud instance URL (*.c360a.salesforce.com)</code></pre>
+→ Returns: JWT access_token, Data 360 instance URL (*.c360a.salesforce.com)</code></pre>
 
             <p>The second token is what you use for all Ingestion API calls. This isn't obvious from the documentation, and it's the first place most implementations fail.</p>
 
@@ -506,7 +506,7 @@ Content-Type: application/json
   ]
 }</code></pre>
 
-            <p>I batch records (200 per request) and the API returns <code>202 Accepted</code> immediately. The data appears in Data Cloud after the Data Stream refreshes — typically 2-3 minutes.</p>
+            <p>I batch records (200 per request) and the API returns <code>202 Accepted</code> immediately. The data appears in Data 360 after the Data Stream refreshes — typically 2-3 minutes.</p>
 
             <h4>And It Worked</h4>
 
@@ -523,7 +523,7 @@ Content-Type: application/json
 
             <p><em>Part 2 dives deeper into the implementation details.</em></p>
 
-            <p>Once you see data landing — not in slides, not in mocks, but in the Data Explorer — the conversation changes. Data Cloud stops being theoretical. It becomes real.</p>
+            <p>Once you see data landing — not in slides, not in mocks, but in the Data Explorer — the conversation changes. Data 360 stops being theoretical. It becomes real.</p>
 
             <h4>This Isn't About Replacing Your Integration Tools</h4>
 
@@ -561,9 +561,9 @@ Content-Type: application/json
 
             <p><strong>Further Reading:</strong></p>
             <ul>
-                <li><a href="https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_quick_start.htm">Data Cloud Developer Guide</a></li>
-                <li><a href="https://trailhead.salesforce.com/content/learn/modules/data-cloud-connectors-and-integrations">Data Cloud Connectors and Integrations (Trailhead)</a></li>
-                <li><a href="https://trailhead.salesforce.com/content/learn/modules/data-cloud-quick-look">Data Cloud Quick Look (Trailhead)</a></li>
+                <li><a href="https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_quick_start.htm">Data 360 Developer Guide</a></li>
+                <li><a href="https://trailhead.salesforce.com/content/learn/modules/data-cloud-connectors-and-integrations">Data 360 Connectors and Integrations (Trailhead)</a></li>
+                <li><a href="https://trailhead.salesforce.com/content/learn/modules/data-cloud-quick-look">Data 360 Quick Look (Trailhead)</a></li>
             </ul>
 
             <p class="series-nav">Next: The Two Towers — Forging Profiles and Engagements in Data 360</p>
@@ -579,7 +579,7 @@ Content-Type: application/json
             
             <div class="image-container">
                 <img src="../assets/treebeard-quoterelatedlist.png" alt="Treebeard Quote Related List">
-                <div class="image-caption">Image: Data Cloud Related List showing quotes on Account page</div>
+                <div class="image-caption">Image: Data 360 Related List showing quotes on Account page</div>
             </div>
 
             <p>In Part 1, I showed how to ingest a Lord of the Rings API into Data 360 — no connector, no middleware. <a href="https://medium.com/@daviddarkins/data-360-ingestion-api-part-1-from-the-shire-to-the-misty-mountains-125be29f8d3d">https://medium.com/@daviddarkins/data-360-ingestion-api-part-1-from-the-shire-to-the-misty-mountains-125be29f8d3d</a></p>
@@ -622,17 +622,17 @@ Content-Type: application/json
 
             <h4>Recap: We Got the Data In</h4>
 
-            <p>In the previous article, we ingested a fan-made Lord of the Rings API into Salesforce Data Cloud using the Ingestion API.</p>
+            <p>In the previous article, we ingested a fan-made Lord of the Rings API into Salesforce Data 360 using the Ingestion API.</p>
 
             <p><strong>933 characters. 2,383 quotes. No connector. No middleware.</strong></p>
 
-            <p>The Ingestion API accepted our data in batches of 200 records, returned <code>202 Accepted</code> immediately, and processed everything asynchronously. Within 2-3 minutes, the data appeared in Data Cloud's Data Streams.</p>
+            <p>The Ingestion API accepted our data in batches of 200 records, returned <code>202 Accepted</code> immediately, and processed everything asynchronously. Within 2-3 minutes, the data appeared in Data 360's Data Streams.</p>
 
-            <p>But getting data into Data Cloud isn't the goal. <strong>Structure</strong> is the goal.</p>
+            <p>But getting data into Data 360 isn't the goal. <strong>Structure</strong> is the goal.</p>
 
-            <p>Most Data Cloud failures happen after ingestion, when teams model everything as Profile data or flatten identity and activity into a single object.</p>
+            <p>Most Data 360 failures happen after ingestion, when teams model everything as Profile data or flatten identity and activity into a single object.</p>
 
-            <p>And in Data Cloud, structure isn't discovered — it's forged.</p>
+            <p>And in Data 360, structure isn't discovered — it's forged.</p>
 
             <h4>Two Towers, Two Kinds of Data</h4>
 
@@ -666,7 +666,7 @@ Content-Type: application/json
 
             <h4>The First Tower: Profiles</h4>
 
-            <p>Characters map to <strong>Profile</strong> data in Data Cloud.</p>
+            <p>Characters map to <strong>Profile</strong> data in Data 360.</p>
 
             <p>Profile data represents identity:</p>
             <ul>
@@ -708,7 +708,7 @@ Content-Type: application/json
       type: string
       format: date-time</code></pre>
 
-            <p>Data Cloud is strict about Profile data. Schemas are enforced. Fields are required. Identifiers must be consistent.</p>
+            <p>Data 360 is strict about Profile data. Schemas are enforced. Fields are required. Identifiers must be consistent.</p>
 
             <p>It can feel unforgiving.</p>
 
@@ -814,7 +814,7 @@ Content-Type: application/json
                 </tr>
             </table>
 
-            <p>Data Cloud does not infer intent — inconsistent identifiers silently degrade unification without error messages. Identity resolution matches fail, but the system doesn't tell you. Automation runs on partial data. Agents answer questions using mislinked context.</p>
+            <p>Data 360 does not infer intent — inconsistent identifiers silently degrade unification without error messages. Identity resolution matches fail, but the system doesn't tell you. Automation runs on partial data. Agents answer questions using mislinked context.</p>
 
             <p>The relationship extends into Salesforce CRM through Identity Resolution, which links <code>LotrCharacter.characterId</code> to <code>Account.characterId__c</code>. The implementation details — field mapping, Data Stream configuration, Related List setup — are covered in Part 3 and the repository.</p>
 
@@ -861,7 +861,7 @@ Content-Type: application/json
 
             <p>Agents fail confidently when Profile and Engagement are poorly separated — they'll answer with authority while hallucinating context from mislinked data. The agent won't error. It will synthesize plausible-sounding answers from broken relationships, and users won't know until the answers are wrong.</p>
 
-            <p>Data Cloud's Profile/Engagement distinction enforces exactly what agents need:</p>
+            <p>Data 360's Profile/Engagement distinction enforces exactly what agents need:</p>
             <ul>
                 <li>Stable identity to anchor on</li>
                 <li>Rich activity to reason over</li>
@@ -874,7 +874,7 @@ Content-Type: application/json
 
             <h4>What Treebeard Looks Like Now</h4>
 
-            <p>After ingestion, here's what exists in Data Cloud:</p>
+            <p>After ingestion, here's what exists in Data 360:</p>
 
             <p><strong>Profile record (LotrCharacter):</strong></p>
             <ul>
@@ -897,7 +897,7 @@ Content-Type: application/json
 
             <p>This asymmetry is the point: one identity, many engagements. The Profile stands alone. The engagements multiply.</p>
 
-            <p>When Identity Resolution runs, Data Cloud creates a unified profile linking <code>LotrCharacter.characterId</code> to <code>Account.characterId__c</code>. A Salesforce Flow creates Person Accounts automatically, and Related Lists surface the quotes on the Account page. The implementation details are in Part 3 and the repository.</p>
+            <p>When Identity Resolution runs, Data 360 creates a unified profile linking <code>LotrCharacter.characterId</code> to <code>Account.characterId__c</code>. A Salesforce Flow creates Person Accounts automatically, and Related Lists surface the quotes on the Account page. The implementation details are in Part 3 and the repository.</p>
 
             <p>The profile stands. The engagements flow. The relationship holds.</p>
 
@@ -917,7 +917,7 @@ Content-Type: application/json
 
             <h4>The Lesson</h4>
 
-            <p>Data modeling in Data Cloud isn't optional complexity. It's the contract that makes everything downstream work.</p>
+            <p>Data modeling in Data 360 isn't optional complexity. It's the contract that makes everything downstream work.</p>
 
             <p>Get it wrong, and you have a data lake. Get it right, and you have unified profiles that power automation, personalization, and AI.</p>
 
@@ -932,13 +932,13 @@ Content-Type: application/json
 
             <p>When you model correctly:</p>
             <ul>
-                <li>Data Cloud can unify profiles across systems</li>
+                <li>Data 360 can unify profiles across systems</li>
                 <li>Salesforce Flows can trigger on external data</li>
                 <li>Related Lists can display engagement data on Account pages</li>
                 <li>AI agents can reason over both identity and activity</li>
             </ul>
 
-            <p>In the final article, we'll look at what happens when this data leaves Data Cloud and enters CRM — and why that's where the real value appears.</p>
+            <p>In the final article, we'll look at what happens when this data leaves Data 360 and enters CRM — and why that's where the real value appears.</p>
 
             <p class="series-nav">Next: From Middle-earth to CRM — When External Data Becomes First-Class</p>
         </div>
@@ -952,22 +952,22 @@ Content-Type: application/json
             <h3>LinkedIn Post 3</h3>
             
             <div class="image-container">
-                <img src="../assets/dcstream_newlotrchardloaccount.png" alt="Data Cloud to CRM Integration">
-                <div class="image-caption">Image: Data Cloud to CRM integration showing Identity Resolution and Related Lists</div>
+                <img src="../assets/dcstream_newlotrchardloaccount.png" alt="Data 360 to CRM Integration">
+                <div class="image-caption">Image: Data 360 to CRM integration showing Identity Resolution and Related Lists</div>
             </div>
 
             <h4>The Return of the Data</h4>
 
             <p>In Parts 1 and 2, we journeyed from the Shire to the Misty Mountains, ingesting a Lord of the Rings API into Data 360 and forging the two towers of data — Profiles and Engagements.</p>
 
-            <p>But data in Data Cloud alone isn't the destination. The real magic happens when external data becomes first-class in Salesforce CRM.</p>
+            <p>But data in Data 360 alone isn't the destination. The real magic happens when external data becomes first-class in Salesforce CRM.</p>
 
-            <p>Here's what happens when Data Cloud meets CRM:</p>
+            <p>Here's what happens when Data 360 meets CRM:</p>
 
             <ul>
-                <li>🔗 <strong>Identity Resolution</strong> — Data Cloud unifies Treebeard's profile with a Salesforce Person Account using <code>characterId</code></li>
-                <li>⚡ <strong>Salesforce Flows</strong> — When a new character lands in Data Cloud, a Flow automatically creates a Person Account in CRM</li>
-                <li>📋 <strong>Related Lists</strong> — Treebeard's 45 quotes appear directly on his Account page, powered by Data Cloud Engagement data</li>
+                <li>🔗 <strong>Identity Resolution</strong> — Data 360 unifies Treebeard's profile with a Salesforce Person Account using <code>characterId</code></li>
+                <li>⚡ <strong>Salesforce Flows</strong> — When a new character lands in Data 360, a Flow automatically creates a Person Account in CRM</li>
+                <li>📋 <strong>Related Lists</strong> — Treebeard's 45 quotes appear directly on his Account page, powered by Data 360 Engagement data</li>
                 <li>🤖 <strong>Agentforce</strong> — AI agents can now query across both CRM data and external data in a single, unified profile</li>
             </ul>
 
@@ -994,17 +994,17 @@ Content-Type: application/json
 
             <h4>Recap: The Journey So Far</h4>
 
-            <p>In Part 1, we ingested a Lord of the Rings API into Salesforce Data Cloud using the Ingestion API — no connector, no middleware. 933 characters and 2,383 quotes landed in Data Cloud.</p>
+            <p>In Part 1, we ingested a Lord of the Rings API into Salesforce Data 360 using the Ingestion API — no connector, no middleware. 933 characters and 2,383 quotes landed in Data 360.</p>
 
             <p>In Part 2, we forged the two towers of data: <strong>Profiles</strong> (stable identity) and <strong>Engagements</strong> (high-volume activity). We saw why the distinction matters — not just for data modeling, but as the foundation for trustworthy AI.</p>
 
-            <p>But data in Data Cloud alone isn't the destination.</p>
+            <p>But data in Data 360 alone isn't the destination.</p>
 
             <p>The real value appears when external data becomes first-class in Salesforce CRM.</p>
 
             <h4>The Bridge: Identity Resolution</h4>
 
-            <p>Data Cloud doesn't automatically know how to link external data to your CRM records. You have to build the bridge.</p>
+            <p>Data 360 doesn't automatically know how to link external data to your CRM records. You have to build the bridge.</p>
 
             <p>That bridge is <strong>Identity Resolution</strong>.</p>
 
@@ -1015,7 +1015,7 @@ Content-Type: application/json
                 <li><strong>Target:</strong> <code>Account.characterId__c</code> (custom field on Salesforce Account)</li>
             </ul>
 
-            <p>When Identity Resolution runs, Data Cloud creates a unified profile that links Treebeard's external profile data to his Salesforce Person Account.</p>
+            <p>When Identity Resolution runs, Data 360 creates a unified profile that links Treebeard's external profile data to his Salesforce Person Account.</p>
 
             <div class="image-container">
                 <img src="../assets/dcstream_newlotrchardloaccountmapping.png" alt="Identity Resolution Configuration">
@@ -1049,12 +1049,12 @@ Content-Type: application/json
 
             <p>Once Identity Resolution links profiles, you can automate CRM record creation.</p>
 
-            <p>For our LOTR example, we created a Salesforce Flow that triggers when a new <code>LotrCharacter</code> record appears in Data Cloud:</p>
+            <p>For our LOTR example, we created a Salesforce Flow that triggers when a new <code>LotrCharacter</code> record appears in Data 360:</p>
 
             <ol>
-                <li><strong>Trigger:</strong> Data Cloud Data Change Event on <code>lotr_LotrCharacter__dlm</code></li>
+                <li><strong>Trigger:</strong> Data 360 Data Change Event on <code>lotr_LotrCharacter__dlm</code></li>
                 <li><strong>Action:</strong> Create Person Account</li>
-                <li><strong>Mapping:</strong> Map Data Cloud fields to Account fields:
+                <li><strong>Mapping:</strong> Map Data 360 fields to Account fields:
                     <ul>
                         <li><code>name__c</code> → <code>LastName</code></li>
                         <li><code>race__c</code> → <code>Race__c</code></li>
@@ -1066,16 +1066,16 @@ Content-Type: application/json
 
             <div class="image-container">
                 <img src="../assets/dcstream_newlotrchardlodeploy.png" alt="Salesforce Flow Configuration">
-                <div class="image-caption">Salesforce Flow automatically creates Person Accounts when Data Cloud profiles are created</div>
+                <div class="image-caption">Salesforce Flow automatically creates Person Accounts when Data 360 profiles are created</div>
             </div>
 
-            <p>When Treebeard's character data lands in Data Cloud, the Flow creates his Person Account in CRM within minutes.</p>
+            <p>When Treebeard's character data lands in Data 360, the Flow creates his Person Account in CRM within minutes.</p>
 
-            <p>This is the power of Data Cloud automation: external data triggers CRM actions without custom middleware or scheduled jobs.</p>
+            <p>This is the power of Data 360 automation: external data triggers CRM actions without custom middleware or scheduled jobs.</p>
 
             <h4>The UI: Related Lists</h4>
 
-            <p>Data Cloud Related Lists bring Engagement data directly into Salesforce CRM record pages.</p>
+            <p>Data 360 Related Lists bring Engagement data directly into Salesforce CRM record pages.</p>
 
             <p>For our LOTR example, we configured a Related List that displays Treebeard's quotes on his Account page:</p>
 
@@ -1091,7 +1091,7 @@ Content-Type: application/json
                 <div class="image-caption">Treebeard's Person Account showing Profile data (Character Information) and Engagement data (Quotes) in a unified view</div>
             </div>
 
-            <p>All 45 quotes from Treebeard appear directly on his Account page, powered by Data Cloud Engagement data.</p>
+            <p>All 45 quotes from Treebeard appear directly on his Account page, powered by Data 360 Engagement data.</p>
 
             <p>This is the UI that makes external data feel native to Salesforce. Users don't need to leave CRM to see external activity data.</p>
 
@@ -1107,7 +1107,7 @@ Content-Type: application/json
 
             <ol>
                 <li><strong>Identity data</strong> — Treebeard's Person Account (CRM)</li>
-                <li><strong>Activity data</strong> — Treebeard's 45 quotes (Data Cloud Engagement)</li>
+                <li><strong>Activity data</strong> — Treebeard's 45 quotes (Data 360 Engagement)</li>
             </ol>
 
             <p>With properly modeled Profiles and Engagements, the agent responds with authority, grounded in properly linked data. It doesn't just search CRM fields; it queries the entire unified profile, including all quotes from Treebeard's Engagement DMO.</p>
@@ -1127,17 +1127,17 @@ Content-Type: application/json
 
             <ol>
                 <li><strong>External API</strong> → The One API returns Treebeard's character data</li>
-                <li><strong>Ingestion API</strong> → Python script sends data to Data Cloud</li>
-                <li><strong>Data Cloud</strong> → Profile (LotrCharacter) and Engagement (LotrQuote) records are created</li>
-                <li><strong>Identity Resolution</strong> → Data Cloud links <code>LotrCharacter.characterId</code> to <code>Account.characterId__c</code></li>
-                <li><strong>Salesforce Flow</strong> → Flow creates Person Account when Data Cloud profile is created</li>
-                <li><strong>Related List</strong> → Quotes appear on Account page via Data Cloud Related List</li>
+                <li><strong>Ingestion API</strong> → Python script sends data to Data 360</li>
+                <li><strong>Data 360</strong> → Profile (LotrCharacter) and Engagement (LotrQuote) records are created</li>
+                <li><strong>Identity Resolution</strong> → Data 360 links <code>LotrCharacter.characterId</code> to <code>Account.characterId__c</code></li>
+                <li><strong>Salesforce Flow</strong> → Flow creates Person Account when Data 360 profile is created</li>
+                <li><strong>Related List</strong> → Quotes appear on Account page via Data 360 Related List</li>
                 <li><strong>Agentforce</strong> → AI agent queries unified profile across CRM and external data</li>
             </ol>
 
             <div class="image-container">
                 <img src="../assets/dcstream_newlotrchardloaccount.png" alt="Complete Architecture Diagram">
-                <div class="image-caption">The complete journey: External API → Data Cloud → CRM → Agentforce</div>
+                <div class="image-caption">The complete journey: External API → Data 360 → CRM → Agentforce</div>
             </div>
 
             <p>This isn't just integration. It's transformation.</p>
@@ -1162,7 +1162,7 @@ Content-Type: application/json
             <ol>
                 <li><strong>Deploy Data Streams</strong> — Configure Profile and Engagement streams</li>
                 <li><strong>Configure Identity Resolution</strong> — Link external profiles to CRM records</li>
-                <li><strong>Deploy Salesforce Flow</strong> — Automate Account creation from Data Cloud</li>
+                <li><strong>Deploy Salesforce Flow</strong> — Automate Account creation from Data 360</li>
                 <li><strong>Configure Related Lists</strong> — Display Engagement data on Account pages</li>
                 <li><strong>Test with Agentforce</strong> — Query unified profiles across CRM and external data</li>
             </ol>
@@ -1171,7 +1171,7 @@ Content-Type: application/json
 
             <h4>The Lesson</h4>
 
-            <p>The Ingestion API isn't just about getting data into Data Cloud. It's about making external data first-class in Salesforce.</p>
+            <p>The Ingestion API isn't just about getting data into Data 360. It's about making external data first-class in Salesforce.</p>
 
             <p>When you model correctly:</p>
 
@@ -1191,9 +1191,9 @@ Content-Type: application/json
             <p>This series covered the complete journey:</p>
 
             <ul>
-                <li><strong>Part 1:</strong> Ingesting external APIs into Data Cloud using the Ingestion API</li>
+                <li><strong>Part 1:</strong> Ingesting external APIs into Data 360 using the Ingestion API</li>
                 <li><strong>Part 2:</strong> Modeling Profiles and Engagements correctly</li>
-                <li><strong>Part 3:</strong> Bridging Data Cloud to CRM with Identity Resolution, Flows, Related Lists, and Agentforce</li>
+                <li><strong>Part 3:</strong> Bridging Data 360 to CRM with Identity Resolution, Flows, Related Lists, and Agentforce</li>
             </ul>
 
             <p>But this is just the beginning.</p>
@@ -1212,9 +1212,9 @@ Content-Type: application/json
             <h4>Further Reading</h4>
 
             <ul>
-                <li><a href="https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_quick_start.htm" target="_blank">Data Cloud Developer Guide</a></li>
-                <li><a href="https://help.salesforce.com/s/articleView?id=sf.c360a_identity_resolution.htm" target="_blank">Identity Resolution in Data Cloud</a></li>
-                <li><a href="https://help.salesforce.com/s/articleView?id=sf.c360a_related_lists.htm" target="_blank">Data Cloud Related Lists</a></li>
+                <li><a href="https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_quick_start.htm" target="_blank">Data 360 Developer Guide</a></li>
+                <li><a href="https://help.salesforce.com/s/articleView?id=sf.c360a_identity_resolution.htm" target="_blank">Identity Resolution in Data 360</a></li>
+                <li><a href="https://help.salesforce.com/s/articleView?id=sf.c360a_related_lists.htm" target="_blank">Data 360 Related Lists</a></li>
                 <li><a href="https://trailhead.salesforce.com/content/learn/modules/flow-basics" target="_blank">Salesforce Flows</a></li>
             </ul>
 
