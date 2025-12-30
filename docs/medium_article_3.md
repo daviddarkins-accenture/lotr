@@ -20,11 +20,12 @@ The real value appears when external data becomes first-class in Salesforce CRM.
 
 Before we dive into the technical details, let's translate the pattern.
 
-**LOTR Example:**
+### Lord of the Rings Example:
+
 - **Characters** (Profiles) = Treebeard, Gandalf, Frodo — stable identities with attributes like race, realm, height
 - **Quotes** (Engagements) = 2,383 lines of dialogue — high-volume activity tied to characters
 
-**Real-World Equivalent:**
+### Real-World Equivalent:
 
 | Industry | Profile (Identity) | Engagement (Activity) |
 |----------|---------------------|----------------------|
@@ -213,25 +214,29 @@ But this is just the beginning.
 
 The same pattern applies to any external data source. Here's what it looks like in practice:
 
-**Healthcare:**
+### Healthcare:
+
 - Ingest patient data from Epic/Cerner EMRs → Create Person Accounts in Salesforce
 - Link lab results, prescriptions, appointments as Engagement data
 - Display patient history as Related Lists on Account pages
 - Enable agents to answer: "What medications is this patient currently taking?"
 
-**Retail:**
+### Retail:
+
 - Ingest customer data from loyalty platforms → Unify with CRM records
 - Link purchase transactions, returns, website visits as Engagement data
 - Surface transaction history as Related Lists on Account pages
 - Enable agents to answer: "What did this customer buy last month?"
 
-**Manufacturing:**
+### Manufacturing:
+
 - Ingest device/asset data from IoT platforms → Create Asset records in Salesforce
 - Link sensor readings, maintenance events, alerts as Engagement data
 - Display telemetry as Related Lists on Asset pages
 - Enable agents to answer: "What alerts has this device generated in the past week?"
 
-**Financial Services:**
+### Financial Services:
+
 - Ingest account holder data from core banking systems → Link to Salesforce Accounts
 - Link transactions, loan applications, card swipes as Engagement data
 - Surface transaction history as Related Lists on Account pages
@@ -241,12 +246,11 @@ If you can speak the Ingestion API's language, you can make any external data fi
 
 ---
 
-**Further Reading:**
+## Further Reading
 
-- [Data 360 Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_quick_start.htm)
-- [Identity Resolution in Data 360](https://help.salesforce.com/s/articleView?id=sf.c360a_identity_resolution.htm)
-- [Data 360 Related Lists](https://help.salesforce.com/s/articleView?id=sf.c360a_related_lists.htm)
-- [Salesforce Flows](https://trailhead.salesforce.com/content/learn/modules/flow-basics)
+- Data 360 Developer Guide
+- Identity Resolution in Data 360
+- Data 360 Related Lists
 
 ---
 
