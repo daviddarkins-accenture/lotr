@@ -227,6 +227,14 @@ When you understand it, you stop asking "is there a connector?" and start asking
 
 The answer is usually yes.
 
+**The LOTR example isn't just a fun demo.** The same pattern applies to:
+- Patient data from EMR systems → Healthcare CRM
+- Customer data from loyalty platforms → Retail CRM  
+- Device data from IoT platforms → Manufacturing CRM
+- Transaction data from payment processors → Financial Services CRM
+
+If a fan-made fantasy API can be ingested with no connector, your enterprise API can too.
+
 In the next article, we'll look at how to model this data — and why the distinction between Profile and Engagement data is the difference between a data lake and a unified customer view.
 
 *Consider this the moment the party leaves the Shire.*

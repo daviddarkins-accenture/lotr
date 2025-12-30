@@ -205,6 +205,18 @@ The relationship extends into Salesforce CRM through Identity Resolution, which 
 
 This is where the pattern generalizes to real-world systems.
 
+**Replace the LOTR fields with your domain:**
+
+| LOTR | Healthcare | Retail | Manufacturing |
+|------|------------|--------|---------------|
+| `characterId` | Patient MRN | Loyalty ID | Device Serial Number |
+| `name`, `race`, `realm` | Name, DOB, Insurance | Name, Segment, Region | Model, Location, Status |
+| `dialog`, `movie` | Lab Result, Procedure | Transaction, Channel | Sensor Reading, Alert |
+| Profile DMO | Patient Profile | Customer Profile | Asset Profile |
+| Engagement DMO | Encounters | Purchases | Telemetry Events |
+
+The architecture is identical. The only difference is the domain.
+
 ---
 
 ## Why This Matters for Agentforce
