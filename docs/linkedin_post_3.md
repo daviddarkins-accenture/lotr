@@ -4,30 +4,34 @@
 
 ---
 
-In Parts 1 and 2, we journeyed from the Shire to the Misty Mountains, ingesting a Lord of the Rings API into Data 360 and forging the two towers of data — Profiles and Engagements.
+In Parts 1 and 2, we journeyed from the Shire to the Misty Mountains, ingesting a Lord of the Rings API into Data 360 and forging the two towers of data — Profiles and Engagements. https://lnkd.in/ecBsxAEf
 
-But data in Data 360 alone isn't the destination. The real magic happens when external data becomes first-class in Salesforce CRM.
+But here's where the real magic happens.
 
-Here's what happens when Data 360 meets CRM:
+The data has returned. And it's not just sitting in Data 360 — it's become first-class in Salesforce CRM.
 
-🔗 **Identity Resolution** — Data 360 unifies Treebeard's profile with a Salesforce Person Account using `characterId`
-
-⚡ **Salesforce Flows** — When a new character lands in Data 360, a Flow automatically creates a Person Account in CRM
-
-📋 **Related Lists** — Treebeard's 45 quotes appear directly on his Account page, powered by Data 360 Engagement data
-
-🤖 **Agentforce** — AI agents can now query across both CRM data and external data in a single, unified profile
+Treebeard's character data now lives as a Person Account. His 45 quotes appear as a Related List on his Account page. And when you ask Agentforce "Did Treebeard ever talk about Gandalf?" — the agent queries across both CRM data and all 45 quotes from Data 360.
 
 This isn't just integration. It's transformation.
 
-External data becomes as native to Salesforce as any standard object. Users see it in the UI. Flows trigger on it. Agents reason over it.
+But here's the real hook: The same pattern that worked for LOTR characters works for:
 
-The journey from random API to first-class CRM data is complete.
+🏥 **Healthcare** — Patient data from EMRs → Person Accounts → Lab results as Related Lists → Agents answer medication questions
 
-Want to see how this architectural magic works?
+🛒 **Retail** — Customer data from loyalty platforms → Unified profiles → Transaction history as Related Lists → Agents answer purchase questions
+
+🏭 **Manufacturing** — Device data from IoT → Asset records → Sensor readings as Related Lists → Agents answer alert questions
+
+💳 **Financial Services** — Account data from banking systems → CRM Accounts → Transaction history as Related Lists → Agents answer transaction questions
+
+The architecture is identical. The only difference is the domain.
+
+If a fan-made fantasy API can become first-class in Salesforce, your enterprise data can too.
+
+Want to see the complete journey from external API to CRM to Agentforce?
 
 👉 **Data 360 Ingestion API Part 3 — From Middle-earth to CRM: When External Data Becomes First-Class**
 
-[Medium link]
+https://medium.com/@daviddarkins/data-360-ingestion-api-part-3-from-middle-earth-to-crm-73671028a626
 
-#Salesforce #DataCloud #Agentforce #AI #DataIntegration #LordOfTheRings
+#Salesforce #Data360 #Agentforce #AI #DataIntegration #LordOfTheRings
